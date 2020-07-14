@@ -1,7 +1,7 @@
 <template>
   <div class="market">
       <Nav class="Nav"></Nav>
-      <router-view />
+      <router-view class="marketRouter" />
   </div>
 </template>
 
@@ -26,5 +26,9 @@ export default {
 
 .Nav {
     width: 16%;
+}
+
+.marketRouter {
+    width: 84%;
 }
 </style>

@@ -1,8 +1,8 @@
 <template>
   <div class="nav">
-      <div class="home">홈</div>
-      <div class="store">상점</div>
-      <div class="community">게시판</div>
+      <router-link style="text-decoration: none; color: inherit;" to="/market/home"><div class="home">홈</div></router-link>
+      <router-link style="text-decoration: none; color: inherit;" to="/market/store"><div class="store">상점</div></router-link>
+      <router-link style="text-decoration: none; color: inherit;" to="/market/community"><div class="community">게시판</div></router-link>
   </div>
 </template>
 
@@ -14,6 +14,7 @@ export default {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Jua&display=swap");
+
 .nav {
     background-color: #fdafd063;
     border-right: 1px solid rgba(143, 141, 141, 0.534);
