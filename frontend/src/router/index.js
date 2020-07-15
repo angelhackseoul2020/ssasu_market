@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Home from '../views/Main.vue'
 
 Vue.use(VueRouter)
 
@@ -39,7 +39,13 @@ Vue.use(VueRouter)
         component: () => import('../components/market/MarketCommunity.vue')
       }
     ]
+  },
+  {
+    path:'/maps',
+    name:'maps',
+    component: () => import('../views/Maps.vue')
   }
+
 ]
 
 const router = new VueRouter({

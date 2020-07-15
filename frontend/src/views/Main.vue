@@ -1,7 +1,7 @@
 <template>
     <div>
-        <img id='intro' src="../assets/bgimg.png" alt="">
-        <img id='charactor' src="../assets/logo2.png" alt="">
+        <img id='intro' src="../assets/imgs/bgimg.png" alt="">
+        <img id='charactor' src="../assets/imgs/logo2.png" alt="">
         <div id="intro-text">"나의 전통시장 찾기"</div>
         <div id="intro-sub">"소상공인이 살아야 지역경제가 산다"</div>
         <div id="login-btn">로그인</div>
@@ -22,8 +22,8 @@
 </template>
 
 <script>
-import LoginModal from './LoginModal'
-import SignupModal from './SignupModal'
+import LoginModal from '../components/Intro/LoginModal'
+import SignupModal from '../components/Intro/SignupModal'
 
 export default {
     components:{
@@ -49,6 +49,7 @@ export default {
         },
     methods:{
         arrange(){
+            console.log('arrange');
             var intro = document.getElementById('intro')
             intro.style.width = this.width + 'px'
             intro.style.height = this.height + 'px'
@@ -78,7 +79,7 @@ export default {
         },
         loginSub(){
             this.openLoginModal = 0
-            this.$emit('login')
+            location.href="maps"
         },
         closeLoginModal(){
             this.openLoginModal = 0
@@ -91,6 +92,18 @@ export default {
         }
 
 
+    },
+    watch:{
+        width:{
+            handler: function(){
+                this.arrange()
+            }
+        },
+        height:{
+            handler:function(){
+                this.arrange()
+            }
+        },
     }
 }
 </script>
