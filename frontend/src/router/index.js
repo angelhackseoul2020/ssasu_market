@@ -37,6 +37,11 @@ Vue.use(VueRouter)
         path: 'community',
         name: 'community',
         component: () => import('../components/market/MarketCommunity.vue')
+      },
+      {
+        path: 'write',
+        name: 'write',
+        component: () => import('../components/market/CommunityWrite.vue')
       }
     ]
   },
