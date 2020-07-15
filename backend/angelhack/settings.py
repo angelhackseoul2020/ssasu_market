@@ -33,7 +33,7 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'accounts',
-    # 'market',
+    'market',
     'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
