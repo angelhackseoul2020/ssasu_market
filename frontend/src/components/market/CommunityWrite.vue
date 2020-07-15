@@ -1,29 +1,24 @@
 <template>
-  <div class="marketCommunityWrap">
-    <div class="marketCommunity">
-      <div class="Header">
-        <div class="marketName">광장시장</div>
-        <div class="searchBar">
-          <img class="searchIcon" src="../../assets/imgs/search.png" alt />
-          <input type="text" placeholder="검색" />
-        </div>
-        <button class="write">
+  <div class="communityWriteWrap">
+    <div class="communityWrite">
+      <form action class="photoUpload">
+        <input class="photoInput" type="file" />
+      </form>
+
+      <div class="textUpload">
+        <input type="text" class="title" placeholder="제목" />
+        <textarea name id cols="30" rows="10" class="textField" placeholder="본문"></textarea>
+        <button class="write" type="submit">
           <img class="writeIcon" src="../../assets/imgs/write.png" alt />
         </button>
       </div>
-      <ReviewCard></ReviewCard>
-      <ReviewCard></ReviewCard>
     </div>
   </div>
 </template>
 
 <script>
-import ReviewCard from "./ReviewCard.vue";
 export default {
-  name: "MarketCommunity",
-  components: {
-    ReviewCard
-  }
+  name: "CommunityWrite"
 };
 </script>
 
@@ -33,55 +28,74 @@ export default {
   font-family: "Jua", sans-serif;
   box-sizing: border-box;
 }
-.marketCommunityWrap {
+.communityWriteWrap {
   margin: 3rem 3rem;
+  display: flex;
+  align-items: center;
 }
-.marketCommunity {
+.communityWrite {
   width: 70%;
   margin: 0 auto;
-}
-.Header {
-  width: 100%;
-  margin: 0;
+  background-color: rgba(252, 252, 252, 0.589);
+  border-radius: 15px;
   display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+  /* height: 400px; */
 }
-.marketName {
-  font-size: 3.5rem;
-  color: #2e0202;
+.photoUpload {
+  /* margin-top: 30px; */
 }
-.searchBar {
-  width: 300px;
-  height: 50px;
+.photoInput {
+}
+.textUpload {
   display: flex;
-  position: absolute;
-  right: 25%;
-  background-color: #fdafd063;
-  border-radius: 25px;
-  border: 1.2px solid rgba(245, 245, 245, 0.575);
-}
-.searchIcon {
-  width: 30px;
-  margin: 10px;
+  flex-direction: column;
+  align-items: center;
 }
 input {
-  outline: none;
-  background-color: transparent;
-  border: none;
-  height: 50px;
-  font-size: 30px;
+  font-size: 1.3rem;
   color: #3d0606b7;
-  margin: 0;
 }
 input::placeholder {
-  font-size: 2rem;
+  font-size: 1.3rem;
   color: #5a0909b7;
 }
+input:focus {
+  outline: none;
+}
+textarea {
+  font-size: 1.3rem;
+  color: #3d0606b7;
+}
+textarea::placeholder {
+  font-size: 1.3rem;
+  color: #5a0909b7;
+}
+textarea:focus {
+  outline: none;
+}
+.title {
+  background-color: #fdafd063;
+  border-radius: 13px;
+  border: none;
+  margin: 3% 0;
+  width: 300px;
+  height: 40px;
+}
+.textField {
+  background-color: #fdafd063;
+  border-radius: 13px;
+  border: none;
+  width: 300px;
+  height: 200px;
+}
 .write {
-  position: absolute;
-  right: 15%;
   border-style: none;
   background-color: transparent;
   outline: 0;
+  width: 50px;
+  margin-top: 3%;
 }
 .write:hover {
   cursor: pointer;
