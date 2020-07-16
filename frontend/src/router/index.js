@@ -19,6 +19,33 @@ Vue.use(VueRouter)
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
+    path: '/admin',
+    name: 'Admin',
+    component: () => import('../views/Admin.vue'),
+    children: [
+      {
+        path: 'store',
+        name: 'store',
+        component: () => import('../components/admin/AdminStore.vue')
+      },
+      {
+        path: 'addstore',
+        name: 'addstore',
+        component: () => import('../components/admin/AdminStoreAdd.vue')
+      },
+      {
+        path: 'user',
+        name: 'user',
+        component: () => import('../components/admin/AdminUser.vue')
+      },
+      {
+        path: 'adduser',
+        name: 'adduser',
+        component: () => import('../components/admin/AdminUserAdd.vue')
+      },
+    ]
+  },
+  {
     path: '/market',
     name: 'Market',
     component: () => import('../views/Market.vue'),
