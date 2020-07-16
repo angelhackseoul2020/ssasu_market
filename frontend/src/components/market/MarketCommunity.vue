@@ -7,11 +7,13 @@
           <img class="searchIcon" src="../../assets/imgs/search.png" alt />
           <input type="text" placeholder="검색" />
         </div>
-        <button class="write">
-          <img class="writeIcon" src="../../assets/imgs/write.png" alt />
-        </button>
+        <router-link to="/market/write">
+          <button class="write">
+            <img class="writeIcon" src="../../assets/imgs/write.png" alt />
+          </button>
+        </router-link>
       </div>
-      <ReviewCard></ReviewCard>
+      <router-link style="text-decoration: none; color: inherit;" to="/market/reviewdetail"><ReviewCard></ReviewCard></router-link>
       <ReviewCard></ReviewCard>
     </div>
   </div>
