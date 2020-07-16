@@ -42,7 +42,12 @@ Vue.use(VueRouter)
         path: 'write',
         name: 'write',
         component: () => import('../components/market/CommunityWrite.vue')
-      }
+      },
+      {
+        path: 'reviewdetail',
+        name: 'reviewdetail',
+        component: () => import('../components/market/ReviewDetail.vue')
+      },
     ]
   }
 ]
