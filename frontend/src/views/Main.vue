@@ -126,7 +126,11 @@ export default {
   border-radius: 50%;
   border: 2px solid pink;
 }
+.logoCircle:hover {
+  background-color: rgba(136, 106, 106, 0.267);
+}
 #charactor {
+  margin-left: 1%;
   position: absolute;
   transform: scale(0.7);
 }
