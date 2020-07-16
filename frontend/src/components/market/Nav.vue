@@ -45,6 +45,9 @@ export default {
   justify-content: center;
   align-items: center;
 }
+.home:hover {
+  background-color: #ff006a2f;
+}
 .homeIcon {
   width: 140px;
 }
@@ -57,6 +60,9 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.store:hover {
+  background-color: #ff006a2f;
 }
 .storeIcon {
   width: 140px;
@@ -71,7 +77,10 @@ export default {
   justify-content: center;
   align-items: center;
 }
+.community:hover {
+  background-color: #ff006a2f;
+}
 .communityIcon {
-  width: 130px;
+  width: 120px;
 }
 </style>
