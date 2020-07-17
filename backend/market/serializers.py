@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Market
+from .models import Market, Visitor
 
 class MarketSerializer(serializers.ModelSerializer):
     class Meta:
