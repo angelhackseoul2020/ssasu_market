@@ -20,7 +20,7 @@ class Market(models.Model):
         return [self.id]
 
 class VisitoRecord(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='visitors', on_delete=models.CASCADE)
+    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='visitors', on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     markets = models.ManyToManyField(Market, related_name="visitors")
     def __str__(self):
@@ -30,7 +30,7 @@ class Visitor(models.Model):
     user_id = models.CharField(max_length=100)
 
 class Review(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='reviews', on_delete=models.CASCADE)
+    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='reviews', on_delete=models.CASCADE)
     market = models.ForeignKey(Market, on_delete=models.CASCADE, related_name='review')
     title = models.CharField(max_length=50) 
     content = models.TextField()
@@ -55,3 +55,8 @@ class Openhour(models.Model):
 class City(models.Model): # 무슨 구 표시
     cityid = models.AutoField(primary_key=True)
     name = models.CharField(max_length=15)
+
+class VisitDatabase(models.Model):
+    name = models.ForeignKey('Market', on_delete=models.CASCADE, related_name='visitdatabase') # 몇 번째 마쳇인지
+    date = models.CharField(max_length=20)
+    number = models.IntegerField()
