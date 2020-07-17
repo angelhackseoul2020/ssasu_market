@@ -19,7 +19,18 @@ def info(request):
     return Response(serializer.data)
 
 
-# visitor 정보 저장 api
+# VisitorRecord 정보 저장 api
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def make_visitor_record(request, market_pk):
+    serializer = VisitorSerializer(data = request.data)
+    user_id = request.data.get('user_id')
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(market = market_pk)
+    return Response(serializer.data)
+
+
+# Visitor 정보 저장 api
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def makevisitor(request):
@@ -30,19 +41,15 @@ def makevisitor(request):
 
 
 # qrcode 보여주는 api
-DEMO_CONTACT = ContactDetail(
-        name='gyyoon4u',
-        market='tong-in market',
-    )
 DEMO_OPTIONS = QRCodeOptions(size='t', border=6, error_correction='L')
 
-def qrcode_page(request):
-    visitor = Visitor.objects.only()
+def qrcode_page(request, market_pk, user_pk):
+    user_id = get_object_or_404(User, pk=user_pk)
+    market_id = get_object_or_404(Market, pk=market_pk)
     context = dict(
-        contact_detail=DEMO_CONTACT,
         options_example=DEMO_OPTIONS,
-        visitor=visitor['user_id']
+        user=user_id["user_id"],
+        market=market_id["name"]
     )
 
-    # Render the index page.
     return render(request, 'market/qrcode_page.html', context=context)

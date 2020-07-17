@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Market, Visitor
+from .models import Market, VisitoRecord
 
 class MarketSerializer(serializers.ModelSerializer):
     class Meta:
@@ -7,14 +7,6 @@ class MarketSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class VisitorSerializer(serializers.ModelSerializer):
-
     class Meta:
-        model = Visitor
-        fields = ['id', 'user_id']
-
-    def create(self, validated_data):      
-        visitor = Visitor(
-                user_id=validated_data['user_id']
-            )
-        visitor.save()
-        return visitor
+        model = VisitoRecord
+        fields = '__all__'
