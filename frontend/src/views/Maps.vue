@@ -8,6 +8,7 @@
 </template>
 <script>
 import KakaoMap from '../components/map/KakaoMap.vue'
+import axios from 'axios'
 export default {
   data:()=>({
     beforeLogin:1,
@@ -73,6 +74,10 @@ export default {
     this.height = window.innerHeight
     this.mapwidth = this.width + 'px'
     this.mapheight = this.height + 'px'
+    axios.get('http://127.0.0.1:8000/markeet/info/')
+    .then(function(response){
+      this.markers = response.data
+    })
   },
   methods:{
   },

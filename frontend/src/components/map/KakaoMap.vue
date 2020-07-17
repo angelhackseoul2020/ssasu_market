@@ -8,6 +8,23 @@
 import Map from '@/services/map/KakaoMap'
 
 export default {
+  created(){
+    var keySet = this.markers.map(
+      (marker) => {
+        return marker.cluster_key
+      }
+    )
+    keySet = keySet.filter((key,index) => keySet.indexOf(key) !== index)
+    this.clustering = keySet.map(
+      (key,index) =>{
+        return{
+          key:key,
+          color:'#918749',
+          zIndex:index
+        }
+      }
+    )
+  },
   props: {
     elementId: {
       type: String,
@@ -34,7 +51,8 @@ export default {
   data () {
     return {
       map: null,
-      search: false
+      search: false,
+      clustering:[]
     }
   },
   watch: {
@@ -51,26 +69,7 @@ export default {
       if (!this.map) {
         const map = new Map()
         await map.mount(this.elementId)
-        map.addMarkerClusters([
-          {
-            key: '신림',
-            color: '#222529',
-            zIndex: 0,
-            singleIconURL: '../assets/logo.png',
-          },
-          {
-            key: '봉천',
-            color: '#209cee',
-            zIndex: 1,
-            singleIconURL: '../assets/logo.png',
-          },
-          {
-            key: '서울대입구',
-            color: '#209fef',
-            zIndex: 2,
-            singleIconURL: '../assets/logo.png',
-          },
-        ])
+        map.addMarkerClusters(this.clustering)
         this.map = map
         this.search = map.openSearch
       } else {
@@ -83,11 +82,11 @@ export default {
       this.map.addMarkers(
         markers.map(
           (marker) => {
-            const { name, type, location: { lat, lng } } = marker
+            const { name, cluster_key, latitude, longitude } = marker
             return {
-              lat,
-              lng,
-              clusterKey: type,
+              lat:latitude,
+              lng:longitude,
+              clusterKey: cluster_key,
               title: name,
               onClick: () => {
                 this.$emit('click-marker', marker)
