@@ -8,7 +8,8 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from qr_code.qrcode.utils import ContactDetail, QRCodeOptions
-
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 # market 관련 api
 @api_view(['GET'])
@@ -43,8 +44,8 @@ def makevisitor(request):
 # qrcode 보여주는 api
 DEMO_OPTIONS = QRCodeOptions(size='t', border=6, error_correction='L')
 
-def qrcode_page(request, market_pk, user_pk):
-    user_id = get_object_or_404(User, pk=user_pk)
+def qrcode_page(request, market_pk):
+    user_id = get_object_or_404(User, pk=userid)
     market_id = get_object_or_404(Market, pk=market_pk)
     context = dict(
         options_example=DEMO_OPTIONS,
