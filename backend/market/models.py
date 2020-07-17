@@ -52,3 +52,8 @@ class Openhour(models.Model):
 class City(models.Model): # 무슨 구 표시
     cityid = models.AutoField(primary_key=True)
     name = models.CharField(max_length=15)
+
+class VisitDatabase(models.Model):
+    name = models.ForeignKey('Market', on_delete=models.CASCADE, related_name='visitdatabase') # 몇 번째 마쳇인지
+    date = models.CharField(max_length=20)
+    number = models.IntegerField()
