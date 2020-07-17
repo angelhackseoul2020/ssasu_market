@@ -28,7 +28,7 @@ class VisitoRecord(models.Model):
 
 class Visitor(models.Model):
     user_id = models.CharField(max_length=100)
-    
+
 class Review(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='reviews', on_delete=models.CASCADE)
     market = models.ForeignKey(Market, on_delete=models.CASCADE, related_name='review')
