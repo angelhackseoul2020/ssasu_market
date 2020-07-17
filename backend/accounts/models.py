@@ -5,7 +5,7 @@ from django.contrib.auth.models import UserManager
 
 class User(AbstractBaseUser):
   objects = UserManager()
-  userid = models.CharField(max_length=50, unique=True)
+  userid = models.CharField(max_length=50, unique=True) # minju11012
   phone = models.CharField(max_length=50)
   USERNAME_FIELD = 'userid'
   REQUIRED_FIELDS = []
