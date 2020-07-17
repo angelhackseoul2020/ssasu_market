@@ -7,6 +7,7 @@ from .serializers import MarketSerializer, ReviewSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from accounts.models import User 
 
 # market 관련 api
 @api_view(['GET'])
@@ -28,6 +29,7 @@ def write_review(request):
     score = request.data.get('score')
     image = request.data.get('image')
     review = Review()
+    user =  get_object_or_404(User, pk=user) 
     review.user = user
     review.market = market
     review.title = title
@@ -35,5 +37,6 @@ def write_review(request):
     review.image = image
     review.content = content
     review.save()
-    serializer = ReviewSerializer
+    serializer = ReviewSerializer(instance=review)
     return Response(serializer.data)
+
