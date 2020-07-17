@@ -1,17 +1,16 @@
 <template>
   <div class="adminUserAddWrap">
+    <div id="adminUserAddLabel">
+      <p id="userIdText">아이디</p>
+      <p id="userNicknameText">닉네임</p>
+      <p id="userEmailText">이메일</p>
+      <p id="userTellText">연락처</p>
+    </div>
     <div class="adminUserAdd">
       <form action method="GET">
-        <label for="userId">아이디</label>
         <input type="text" id="userId" placeholder="아이디" required />
-
-        <label for="userNickname">닉네임</label>
         <input type="text" id="userNickname" placeholder="닉네임" />
-
-        <label for="userEmail">이메일</label>
         <input type="text" id="userEmail" placeholder="이메일" />
-
-        <label for="userTell">연락처</label>
         <input type="text" id="userTell" placeholder="연락처" />
 
         <div class="deleteSave">
@@ -37,6 +36,7 @@ export default {
   box-sizing: border-box;
 }
 .adminUserAddWrap {
+  position: relative;
   margin: 3rem 3rem;
   background-color: rgba(252, 252, 252, 0.589);
   border-radius: 15px;
@@ -44,7 +44,61 @@ export default {
   justify-content: center;
   align-items: center;
 }
+#adminUserAddLabel {
+  position: absolute;
+  width: 30%;
+  height: 100%;
+  left: 0;
+}
+#userIdText {
+  position: absolute;
+  font-size: 40px;
+  right: 0;
+  top: 50px;
+}
+#userNicknameText {
+  position: absolute;
+  font-size: 40px;
+  right: 0;
+  top: 150px;
+}
+#userEmailText {
+  position: absolute;
+  font-size: 40px;
+  right: 0;
+  top: 250px;
+}
+#userTellText {
+  position: absolute;
+  font-size: 40px;
+  right: 0;
+  top: 350px;
+}
 .adminUserAdd {
+  position: absolute;
+  width: 70%;
+  height: 100%;
+  left: 30%;
+}
+#userId {
+  position: absolute;
+  top: 50px;
+  left: 30px;
+}
+#userNickname {
+  position: absolute;
+  top: 150px;
+  left: 30px;
+}
+#userEmail {
+  position: absolute;
+  top: 250px;
+  left: 30px;
+}
+#userTell {
+  position: absolute;
+  top: 350px;
+  left: 30px;
 }
 label {
   display: block;
@@ -77,9 +131,15 @@ button {
   cursor: pointer;
 }
 #delete {
+  position: absolute;
+  bottom: 30px;
+  right: 200px;
   background-color: rgb(156, 4, 4);
 }
 #save {
+  position: absolute;
+  bottom: 30px;
+  right: 75px;
   background-color: #26833d;
 }
 </style>

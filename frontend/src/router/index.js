@@ -24,22 +24,22 @@ Vue.use(VueRouter)
     component: () => import('../views/Admin.vue'),
     children: [
       {
-        path: '/store',
+        path: 'store',
         name: 'store',
         component: () => import('../components/admin/AdminStore.vue')
       },
       {
-        path: '/addstore',
+        path: 'addstore',
         name: 'addstore',
         component: () => import('../components/admin/AdminStoreAdd.vue')
       },
       {
-        path: '/user',
+        path: 'user',
         name: 'user',
         component: () => import('../components/admin/AdminUser.vue')
       },
       {
-        path: '/adduser',
+        path: 'adduser',
         name: 'adduser',
         component: () => import('../components/admin/AdminUserAdd.vue')
       },
@@ -51,27 +51,27 @@ Vue.use(VueRouter)
     component: () => import('../views/Market.vue'),
     children: [
       {
-        path: '/home',
+        path: 'home',
         name: 'home',
         component: () => import('../components/market/MarketHome.vue')
       },
       {
-        path: '/store',
+        path: 'store',
         name: 'store',
         component: () => import('../components/market/MarketStore.vue')
       },
       {
-        path: '/community',
+        path: 'community',
         name: 'community',
         component: () => import('../components/market/MarketCommunity.vue')
       },
       {
-        path: '/write',
+        path: 'write',
         name: 'write',
         component: () => import('../components/market/CommunityWrite.vue')
       },
       {
-        path: '/reviewdetail',
+        path: 'reviewdetail',
         name: 'reviewdetail',
         component: () => import('../components/market/ReviewDetail.vue')
       },
