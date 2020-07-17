@@ -15,3 +15,12 @@ def info(request):
     markets = Market.objects.all()
     serializer = MarketSerializer(markets, many=True)
     return Response(serializer.data)
+
+# visitor 정보 저장 api
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def makevisitor(request):
+    serializer = VisitorSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save()
+        return HttpResponse('Sucess Visitor')
