@@ -25,7 +25,7 @@ class Map {
         document.getElementById(elementId),
         {
           center: new Map.daum.maps.LatLng(37.27943075229118, 127.73894402702498),
-          level: 11,
+          level: 9,
         },
       )
       this.map.setCopyrightPosition(Map.daum.maps.CopyrightPosition.BOTTOMRIGHT, true)
@@ -45,9 +45,9 @@ class Map {
         averageCenter: true,
         gridSize: 30,
         minClusterSize: 2,
-        minLevel: 9,
+        minLevel: 7,
         disableClickZoom: true,
-        calculator: [10, 20], // 0~9, 10~19, 20~
+        calculator: [8, 15], // 0~9, 10~19, 20~
         styles: [
           {
             width: '30px',
