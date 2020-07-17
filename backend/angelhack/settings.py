@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'accounts',
     'market',
+    'qr_code',
     'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -141,6 +142,16 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+
+# Django QR Code specific options.
+QR_CODE_CACHE_ALIAS = 'qr-code'
+QR_CODE_URL_PROTECTION = {
+    constants.TOKEN_LENGTH: 30,  # Optional random token length for URL protection. Defaults to 20.
+    constants.SIGNING_KEY: 'my-secret-signing-key',  # Optional signing key for URL token. Uses SECRET_KEY if not defined.
+    constants.SIGNING_SALT: 'my-signing-salt',  # Optional signing salt for URL token.
+    constants.ALLOWS_EXTERNAL_REQUESTS_FOR_REGISTERED_USER: False   # Tells whether a registered user can request the QR code URLs from outside a site that uses this app. It can be a boolean value used for any user, or a callable that takes a user as parameter. Defaults to False (nobody can access the URL without the security token).
+}
 
 
 # Static files (CSS, JavaScript, Images)
