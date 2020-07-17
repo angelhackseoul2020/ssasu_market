@@ -25,6 +25,9 @@ class VisitoRecord(models.Model):
     markets = models.ManyToManyField(Market, related_name="visitors")
     def __str__(self):
         return [self.id ,self.markets]
+
+class Visitor(models.Model):
+    user_id = models.CharField(max_length=100)
     
 class Review(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='reviews', on_delete=models.CASCADE)
