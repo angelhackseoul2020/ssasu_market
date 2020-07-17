@@ -9,4 +9,4 @@ class MarketSerializer(serializers.ModelSerializer):
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = '__all__'
+        fields = ['market','title','content','score','image','date', 'user']

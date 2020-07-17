@@ -21,22 +21,11 @@ def info(request):
 # @permission_classes([IsAuthenticated])
 @api_view(['POST'])
 @permission_classes([AllowAny])
-def write_review(request):
-    user = request.data.get('user')
-    market = request.data.get('market')
-    title = request.data.get('title')
-    content = request.data.get('content')
-    score = request.data.get('score')
-    image = request.data.get('image')
-    review = Review()
-    user =  get_object_or_404(User, pk=user) 
-    review.user = user
-    review.market = market
-    review.title = title
-    review.score = score
-    review.image = image
-    review.content = content
-    review.save()
-    serializer = ReviewSerializer(instance=review)
+def write_review(request, market_pk):
+    serializer = ReviewSerializer(data = request.data)
+    user = get_object_or_404(User, pk=userid)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(market=market_pk, user=user)
     return Response(serializer.data)
+
 
