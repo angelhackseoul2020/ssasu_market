@@ -23,6 +23,12 @@
 
 <script>
 export default {
+  mounted(){
+    var userAddBtn = document.getElementById('userAddBtn')
+    userAddBtn.addEventListener('click',()=>{
+      location.href = '/adduser'
+    })
+  },
   name: "AdminUser",
   components: {},
   data(){
@@ -123,6 +129,9 @@ export default {
   border-radius: 30px;
   border: solid 1px white;
   right:5%;
-  top:5%
+  top:5%;
+  cursor: pointer;
+  outline: 0;
 }
+
 </style>
