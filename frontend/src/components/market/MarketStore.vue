@@ -5,7 +5,7 @@
         <div class="marketName">광장시장</div>
         <div class="searchBar">
           <img class="searchIcon" src="../../assets/imgs/search.png" alt />
-          <input type="text" placeholder="상점 및 품목 찾기" />
+          <input type="text" placeholder="상점 찾기" />
         </div>
       </div>
       <div id="StoreList">

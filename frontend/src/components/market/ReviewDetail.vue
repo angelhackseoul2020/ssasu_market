@@ -65,14 +65,19 @@ export default {
 }
 .reviewDetail {
   width: 70%;
-  margin: 0 auto;
+  /* margin: 0 auto; */
+  margin-left: 170px;
   background-color: rgba(252, 252, 252);
   border-radius: 15px;
   display: flex;
   align-items: center;
   flex-direction: column;
   padding: 1rem 5rem;
+  border: 5px solid transparent;
   /* height: 400px; */
+}
+.reviewDetail:hover {
+  border: 5px solid rgba(206, 21, 123, 0.295);
 }
 .reviewTitle {
   font-size: 2.5rem;
