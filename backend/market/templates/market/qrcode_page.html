@@ -35,26 +35,14 @@
     <p>SVG has <a href="http://caniuse.com/#feat=svg">broad support</a> now and it will work properly on any modern web browser.</p>
 
     <h3>QRCODE TEST</h3>
-    <table width="100%">
-        <tr>
-            <td>Template code:</td>
-        </tr>
+    <table>
         <tr>
             <td width="33%">
-                <strong><code>{% templatetag openblock %} qr_for_email "john.doe@domain.com" {% templatetag closeblock %}</code></strong>
+                <div>{% qr_for_contact dataaa %}</div>
             </td>
-            <td width="33%">
-                <strong><code>&lt;img src="{% templatetag openblock %} qr_url_for_email "john.doe@domain.com" {% templatetag closeblock %}"</code></strong>
-            </td>
-        </tr>
-        <tr>
-            <p>{{visitor}}</p>
-            <td width="33%">
-                <div>{% qr_for_email user market %}</div> 
-            </td>
-            <td width="33%">
+            <!-- <td width="33%">
                 <div><img src="{% qr_url_for_email 'tong-in market' %}"></div>
-            </td>
+            </td> -->
         </tr>
     </table>
 

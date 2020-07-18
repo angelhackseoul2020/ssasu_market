@@ -42,15 +42,27 @@ def makevisitor(request):
 
 
 # qrcode 보여주는 api
-DEMO_OPTIONS = QRCodeOptions(size='t', border=6, error_correction='L')
-
-def qrcode_page(request, market_pk):
-    user_id = get_object_or_404(User, pk=userid)
+@api_view(['GET', 'POST'])
+@permission_classes([AllowAny])
+def qrcode_page(request, market_pk, user_pk):
+    user_id = get_object_or_404(User, pk=user_pk)
     market_id = get_object_or_404(Market, pk=market_pk)
+    time = datetime.now()
+    print(market_id)
+    dataaa = dict(user_id=user_id, time=time)
+
+    contact_detail = ContactDetail(
+        user_id=user_id,
+        market_id=market_id,
+        time=time,
+    )
+
+    options = QRCodeOptions(size='t', border=6, error_correction='L')
+
     context = dict(
-        options_example=DEMO_OPTIONS,
-        user=user_id["user_id"],
-        market=market_id["name"]
+        contact_detail=contact_detail,
+        options_example=options,
+        dataaa=dataaa
     )
 
     return render(request, 'market/qrcode_page.html', context=context)
