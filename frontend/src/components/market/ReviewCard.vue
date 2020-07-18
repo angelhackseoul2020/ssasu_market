@@ -5,9 +5,9 @@
         <img src="../../assets/imgs/logo1.png" alt="사진" />
       </div>
       <div class="reviewInfo">
-        <div class="reviewTitle">오전에 광장시장 다녀왔는데</div>
-        <div class="reviewText">오전에 한복 사러 광장시장 갔는데 사람..</div>
-        <div class="reviewStar">5.0 ★★★★★</div>
+        <div class="reviewTitle">{{title}}</div>
+        <div class="reviewText">{{text}}</div>
+        <div class="reviewStar">{{score}} {{star}}</div>
         <div id="reviewer">2020.07.12 Seolyu</div>
       </div>
     </div>
@@ -16,7 +16,21 @@
 
 <script>
 export default {
-  name: "ReviewCard"
+  name: "ReviewCard",
+  props: {
+    title: {
+      type: String
+    },
+    text: {
+      type: String
+    },
+    score: {
+      type: Number
+    },
+    star: {
+      type: String
+    }
+  }
 };
 </script>
 
