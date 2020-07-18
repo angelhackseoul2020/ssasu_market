@@ -2,7 +2,6 @@
   <div class="home">
     <div id="MarketDetail">
       <MarketInfo
-        v-for="data in datas"
         :key="data"
         :name="data.name"
         :score="data.score"
@@ -25,17 +24,15 @@ export default {
   name: "MarketHome",
   data() {
     return {
-      datas: [
-        {
-          name: "광장시장",
-          score: 5.0,
-          star: "★★★★★",
-          reviewNum: 3,
-          address: "서울 종로구 창경궁로 88",
-          time: "매일 09:00 ~ 18:00",
-          tell: "02-2267-0291"
-        }
-      ]
+      data: {
+        name: "광장시장",
+        score: 5.0,
+        star: "★★★★★",
+        reviewNum: 3,
+        address: "서울 종로구 창경궁로 88",
+        time: "매일 09:00 ~ 18:00",
+        tell: "02-2267-0291"
+      }
     };
   },
   components: {

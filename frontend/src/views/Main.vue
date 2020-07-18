@@ -150,8 +150,11 @@ export default {
   left: 0;
   text-align: center;
   font-size: 28px;
-  color: #aaaaaa;
+  color: #745757;
   bottom: 40px;
+}
+#intro-sub:hover {
+  color: #221b1b;
 }
 #login-btn {
   position: absolute;
@@ -161,12 +164,14 @@ export default {
   text-align: center;
   padding: 10px 35px;
   font-size: 30px;
-  background-color: #ffccccc2;
+  background-color: #ffcccc9f;
   border: solid #ffffff 1px;
   cursor: pointer;
 }
 #login-btn:hover {
-  background-color: #fd9191c2;
+  color: white;
+  background-color: #df7c8c;
+  border: solid #831515 1px;
 }
 #signup-btn {
   position: absolute;
@@ -175,12 +180,14 @@ export default {
   text-align: center;
   padding: 10px 25px;
   font-size: 30px;
-  background-color: #aaaaffc9;
+  background-color: #a4a4dfc9;
   border-radius: 45px;
   border: solid #ffffff 1px;
   cursor: pointer;
 }
 #signup-btn:hover {
-  background-color: #7d7df8c9;
+  color: white;
+  background-color: #3838a1c9;
+  border: solid #0c3e44 1px;
 }
 </style>

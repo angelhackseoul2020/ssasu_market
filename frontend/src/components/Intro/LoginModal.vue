@@ -40,7 +40,13 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+input:focus,
+input:hover,
+input:active {
+  outline: none;
+  box-shadow: none;
+}
 #login-modal-back {
   position: absolute;
   opacity: 0.96;
@@ -111,5 +117,8 @@ export default {
   left: 320px;
   top: 300px;
   cursor: pointer;
+}
+#login-submit:hover {
+  background-color: #eba0ac;
 }
 </style>
