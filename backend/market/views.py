@@ -48,7 +48,9 @@ def qrcode_page(request, market_pk, user_pk):
     user_id = get_object_or_404(User, pk=user_pk)
     market_id = get_object_or_404(Market, pk=market_pk)
     time = datetime.now()
-    print(market_id)
+    # print('success')
+    # print('time')
+    # print(datetime.now())
     dataaa = dict(user_id=user_id, time=time)
 
     contact_detail = ContactDetail(

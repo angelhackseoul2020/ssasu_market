@@ -16,8 +16,8 @@ class Market(models.Model):
     parking = models.IntegerField(default=0,null=True)
     toilet = models.IntegerField(default=0,null=True)
     cluster_key = models.CharField(max_length=10)
-    def __str__(self):
-        return [self.id]
+    # def __str__(self):
+    #     return [self.id]
 
 class VisitoRecord(models.Model):
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='visitors', on_delete=models.CASCADE)
