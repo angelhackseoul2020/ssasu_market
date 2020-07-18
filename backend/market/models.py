@@ -20,22 +20,25 @@ class Market(models.Model):
         return [self.id]
 
 class VisitoRecord(models.Model):
-    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='visitors', on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='visitors', on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     markets = models.ManyToManyField(Market, related_name="visitors")
     def __str__(self):
         return [self.id ,self.markets]
     
 class Review(models.Model):
-    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='reviews', on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='reviews', on_delete=models.CASCADE)
     market = models.ForeignKey(Market, on_delete=models.CASCADE, related_name='review')
     title = models.CharField(max_length=50) 
     content = models.TextField()
     score = models.IntegerField(default=0)
     image = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
+    class Meta:
+        ordering = ['-pk']
     def __str__(self):
         return [self.id ,self.title]
+
 
 class Openhour(models.Model):
     name = models.ForeignKey(Market, on_delete=models.CASCADE, related_name='openhour')
