@@ -1,5 +1,5 @@
 <template>
-  <div class="reviewCardWrap">
+  <div id="reviewCardWrap" @click="openModal">
     <div class="reviewCard">
       <div class="reviewPhoto">
         <img src="../../assets/imgs/logo1.png" alt="사진" />
@@ -15,9 +15,23 @@
 </template>
 
 <script>
+import ReviewDetail from "./ReviewDetail.vue";
 export default {
   name: "ReviewCard",
+  components: { ReviewDetail },
+  mounted() {},
+  methods: {
+    openModal() {
+      this.$emit("openModal", this.id);
+    }
+  },
+  data() {
+    return {};
+  },
   props: {
+    id: {
+      type: Number
+    },
     title: {
       type: String
     },
@@ -40,6 +54,10 @@ export default {
   font-family: "Jua", sans-serif;
   box-sizing: border-box;
 }
+#reviewCardWrap {
+  position: relative;
+}
+
 .reviewCard {
   width: 100%;
   height: 220px;

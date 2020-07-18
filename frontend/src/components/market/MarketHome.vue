@@ -2,7 +2,6 @@
   <div class="home">
     <div id="MarketDetail">
       <MarketInfo
-        v-for="data in datas"
         :key="data"
         :name="data.name"
         :score="data.score"
@@ -25,7 +24,7 @@ export default {
   name: "MarketHome",
   data() {
     return {
-      datas: [
+      data: [
         {
           name: "광장시장",
           score: 5.0,

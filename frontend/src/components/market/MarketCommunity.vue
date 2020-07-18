@@ -1,5 +1,9 @@
 <template>
   <div class="marketCommunityWrap">
+    <ReviewDetail id="mcModal" v-if="openModal" 
+    :data="datas[selModal]" 
+    @closeModal="modalClose"
+    />
     <div class="marketCommunity">
       <div class="Header">
         <div class="marketName">광장시장</div>
@@ -18,12 +22,14 @@
       </router-link>-->
       <div id="ReviewList">
         <ReviewCard
-          v-for="data in datas"
-          :key="data"
+          v-for="(data,index) in datas"
+          :key="index"
+          :id="index"
           :title="data.title"
           :text="data.text"
           :score="data.score"
           :star="data.star"
+          @openModal="openModals"
         />
       </div>
     </div>
@@ -32,10 +38,23 @@
 
 <script>
 import ReviewCard from "./ReviewCard.vue";
+import ReviewDetail from "./ReviewDetail.vue";
 export default {
   name: "MarketCommunity",
+  methods: {
+    openModals(i) {
+      console.log(i);
+      this.openModal = 1;
+      this.selModal = i;
+    },
+    modalClose() {
+      this.openModal = 0;
+    }
+  },
   data() {
     return {
+      openModal: 0,
+      selModal: -1,
       datas: [
         {
           title: "광장시장",
@@ -65,7 +84,8 @@ export default {
     };
   },
   components: {
-    ReviewCard
+    ReviewCard,
+    ReviewDetail
   }
 };
 </script>
@@ -75,6 +95,12 @@ export default {
 * {
   font-family: "Jua", sans-serif;
   box-sizing: border-box;
+}
+#mcModal {
+  position: fixed;
+  width: 80%;
+  height: 80%;
+  z-index: 20;
 }
 .marketCommunityWrap {
   margin: 3rem 3rem;
