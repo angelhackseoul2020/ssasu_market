@@ -60,3 +60,6 @@ class VisitDatabase(models.Model):
     name = models.ForeignKey('Market', on_delete=models.CASCADE, related_name='visitdatabase') # 몇 번째 마쳇인지
     date = models.CharField(max_length=20)
     number = models.IntegerField()
+
+class File(models.Model):
+    photo = models.ImageField(blank=True)

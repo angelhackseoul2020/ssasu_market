@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import VisitoRecord, Market, Review, Openhour, Visitor
-from django.http import HttpResponse
+from .models import VisitoRecord, Market, Review, Openhour, File
+from django.http import HttpResponse, JsonResponse
 from django.views.decorators.http import require_POST, require_GET
 from datetime import datetime
 from .serializers import MarketSerializer, VisitorSerializer
@@ -9,6 +9,9 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from qr_code.qrcode.utils import ContactDetail, QRCodeOptions
 from django.contrib.auth import get_user_model
+import qrcode
+from PIL import Image
+
 User = get_user_model()
 
 # market 관련 api
@@ -61,10 +64,23 @@ def qrcode_page(request, market_pk, user_pk):
 
     options = QRCodeOptions(size='t', border=6, error_correction='L')
 
-    context = dict(
-        contact_detail=contact_detail,
-        options_example=options,
-        dataaa=dataaa
-    )
+    img = qrcode.make(contact_detail)
+    pic=img.save(f'{user_id}.png')
+    pic=Image.open()
 
-    return render(request, 'market/qrcode_page.html', context=context)
+    layout = File()
+    layout.image = f'{user_id}.png'
+    layout.save('pic')
+
+    file = File.objects.get(name='57 Chevy')
+    
+    # context = dict(
+    #     # contact_detail=contact_detail,
+    #     # options_example=options,
+    #     # user_id=user_id,
+    #     pic=pic,
+    # )
+    
+    return JsonResponse(context)
+    # return render(request, 'market/qrcode_page.html', context=context)
+    # return render(request, 'market/qrcode_page.html', img=img)
