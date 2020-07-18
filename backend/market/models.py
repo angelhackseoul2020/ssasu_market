@@ -62,4 +62,4 @@ class VisitDatabase(models.Model):
     number = models.IntegerField()
 
 class File(models.Model):
-    photo = models.ImageField(blank=True)
+    photo = models.ImageField(blank=True, upload_to='images', null=True)
