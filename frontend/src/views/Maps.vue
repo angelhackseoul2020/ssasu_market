@@ -74,8 +74,11 @@ export default {
     this.height = window.innerHeight
     this.mapwidth = this.width + 'px'
     this.mapheight = this.height + 'px'
-    axios.get('http://127.0.0.1:8000/markeet/info/')
+  },
+  mounted(){
+    axios.get('http://192.168.17.25:8000/markeet/info/')
     .then(function(response){
+      console.log(response)
       this.markers = response.data
     })
   },

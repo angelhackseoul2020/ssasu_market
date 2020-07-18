@@ -1,27 +1,25 @@
 <template>
   <div class="adminUserWrap">
-    <div class="adminUser">유저리스트</div>
     <button id="userAddBtn">유저 추가</button>
-    <div id="colId">
-      <p id="colHead">ID</p>
-      <p id="userData" v-for="user in userList" :key="user">{{user.name}}</p>
-    </div>
-    <div id="colNick">
-      <p id="colHead">닉네임</p>
-      <p id="userData" v-for="user in userList" :key="user">{{user.nick}}</p>
-    </div>
-    <div id="colAddress">
-      <p id="colHead">주소</p>
-      <p id="userData" v-for="user in userList" :key="user">{{user.address}}</p>
-    </div>
-    <div id="colReview">
-      <p id="colHead">리뷰</p>
-      <p id="userData" v-for="user in userList" :key="user">{{user.review}}</p>
+    <div id="userList">
+      <row
+        :uid="id"
+        :nick="nick"
+        :address="address"
+        :reviewcnt="reviewcnt"
+      />
+      <row v-for="user in userList" :key="user.id"
+        :uid="user.id"
+        :nick="user.nick"
+        :address="user.address"
+        :reviewcnt="user.reviewcnt"
+      />
     </div>
   </div>
 </template>
 
 <script>
+import row from './userRow'
 export default {
   mounted(){
     var userAddBtn = document.getElementById('userAddBtn')
@@ -30,39 +28,43 @@ export default {
     })
   },
   name: "AdminUser",
-  components: {},
+  components: {row},
   data(){
     return{
+      id:'ID',
+      nick:'닉네임',
+      address:'주소',
+      reviewcnt:'리뷰 수',
       userList:[
         {
-          'name':'이설유',
+          'id':'이설유',
           'nick':'soulyu',
           'address':'부천',
-          'review':4
+          'reviewcnt':4
         },
         {
-          'name':'김윤재',
+          'id':'김윤재',
           'nick':'yoonjae',
           'address':'봉천',
-          'review':3        
+          'reviewcnt':3        
         },
         {
-          'name':'박권응',
+          'id':'박권응',
           'nick':'kwoneyng',
           'address':'신림',
-          'review':4        
+          'reviewcnt':4        
         },
         {
-          'name':'백민주',
+          'id':'백민주',
           'nick':'minzu',
           'address':'일산',
-          'review':1        
+          'reviewcnt':1        
         },
         {
-          'name':'윤가영',
+          'id':'윤가영',
           'nick':'gayoung',
           'address':'서울대입구',
-          'review':2        
+          'reviewcnt':2        
         },
       ]
     }
@@ -90,32 +92,6 @@ export default {
   left: 15%;
   font-size: 40px;
 }
-#colNick{
-  position:absolute;
-  width: 200px;
-  top: 15%;
-  left: 35%;
-  font-size: 40px;
-}
-#colAddress{
-  position: absolute;
-  width: 200px;
-  top: 15%;
-  left: 55%;
-  font-size: 40px;
-}
-#colReview{
-  position: absolute;
-  width: 200px;
-  top: 15%;
-  left: 75%;
-  font-size: 40px;
-}
-#colHead{
-  font-size: 50px;
-  margin-bottom: 20px;
-  text-align: center;
-}
 #userData{
   margin-bottom: 15px;
   text-align: center;
@@ -133,5 +109,9 @@ export default {
   cursor: pointer;
   outline: 0;
 }
-
+#userList{
+  position: absolute;
+  top: 20%;
+  width: 100%;
+}
 </style>
