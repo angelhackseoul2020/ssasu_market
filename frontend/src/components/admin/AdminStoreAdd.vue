@@ -10,7 +10,7 @@
     </div>
     <div id="adminStoreAdd">
       <form action method="GET">
-        <input type="text" id="storeName" placeholder="상점 이름" required />
+        <input type="text" id="storeName" placeholder="상점 이름" required/>
         <input type="text" id="storeLocation" placeholder="지역" v-model="selLoc" autocomplete="off">
         <div id="storeLocSelect" v-if="location">
           <div id="LocSelectBox" v-for="(loc, index) in sumLoc" :key="index" @mouseover="selectLoc(loc)">{{loc}}</div>
@@ -42,7 +42,7 @@
 
         <input type="text" id="storeMemo" placeholder="메모" />
         <div class="deleteSave">
-          <button type="button" id="delete">delete</button>
+          <button type="button" id="delete" @click="$emit('closeModal')">delete</button>
           <button type="button" id="save">save</button>
         </div>
       </form>
@@ -53,10 +53,15 @@
 <script>
 export default {
   name: "AdminStore",
+  props:{
+    data:{type:Object, default:{}}
+  },
   components: {},
   mounted(){
     this.sumLoc = this.locations
     this.sumMarket = this.markets
+    var storeName = document.getElementById('storeName')
+    storeName.value = this.data.name
     var selectLocBox = document.getElementById('storeLocation')
     selectLocBox.addEventListener('focusin',()=>{
       this.selLoc = ''
@@ -95,15 +100,12 @@ export default {
     })
     var OpenTimeSelect = document.getElementById('storeOpen')
     OpenTimeSelect.addEventListener('click',()=>{
-      console.log('오픈시간 선택해보자');
       this.open = true
     })
     var CloesTimeSelect = document.getElementById('storeClose')
     CloesTimeSelect.addEventListener('click',()=>{
-      console.log('클로즈시간 선택해보자');
       this.close = true
     })
-
   },
   methods:{
     selectLoc(i){
@@ -181,13 +183,16 @@ export default {
   box-sizing: border-box;
 }
 #adminStoreAddWrap {
+  width: 90%;
+  height: 90%;
   position:relative;
   margin: 3rem 3rem;
-  background-color: rgba(252, 252, 252, 0.589);
+  background-color: rgb(252, 252, 252);
   border-radius: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 20;
 }
 #adminStoreAddLabel{
   position: absolute;
@@ -314,7 +319,6 @@ export default {
   top:350px;
   left:30px;
 }
-
 #storeOpen{
   position: absolute;
   top: 465px;
