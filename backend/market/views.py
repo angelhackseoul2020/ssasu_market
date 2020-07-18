@@ -73,4 +73,3 @@ def ud_review(request, review_pk):
     else:
         article.delete()
         return Response({'message': 'review is successfully deleted'})
-        
