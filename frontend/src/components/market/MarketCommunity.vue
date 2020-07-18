@@ -13,8 +13,19 @@
           </button>
         </router-link>
       </div>
-      <router-link style="text-decoration: none; color: inherit;" to="/market/reviewdetail"><ReviewCard></ReviewCard></router-link>
-      <ReviewCard></ReviewCard>
+      <!-- <router-link style="text-decoration: none; color: inherit;" to="/market/reviewdetail">
+        <ReviewCard></ReviewCard>
+      </router-link>-->
+      <div id="ReviewList">
+        <ReviewCard
+          v-for="data in datas"
+          :key="data"
+          :title="data.title"
+          :text="data.text"
+          :score="data.score"
+          :star="data.star"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -23,6 +34,36 @@
 import ReviewCard from "./ReviewCard.vue";
 export default {
   name: "MarketCommunity",
+  data() {
+    return {
+      datas: [
+        {
+          title: "광장시장",
+          text: "광장시장 좋아요",
+          score: 5.0,
+          star: "★★★★★"
+        },
+        {
+          title: "광장시장1",
+          text: "광장시장1 좋아요",
+          score: 5.0,
+          star: "★★★★★"
+        },
+        {
+          title: "광장시장2",
+          text: "광장시장2 좋아요",
+          score: 5.0,
+          star: "★★★★★"
+        },
+        {
+          title: "광장시장3",
+          text: "광장시장3 좋아요",
+          score: 5.0,
+          star: "★★★★★"
+        }
+      ]
+    };
+  },
   components: {
     ReviewCard
   }
@@ -90,5 +131,25 @@ input::placeholder {
 }
 .writeIcon {
   width: 50px;
+}
+#ReviewList {
+  position: absolute;
+  overflow: auto;
+  width: 55%;
+  height: 80%;
+}
+#ReviewList::-webkit-scrollbar {
+  width: 10px;
+}
+#ReviewList::-webkit-scrollbar-thumb {
+  background-color: #88093e;
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+#ReviewList::-webkit-scrollbar-track {
+  background-color: rgba(221, 149, 149, 0.726);
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 5px white;
 }
 </style>

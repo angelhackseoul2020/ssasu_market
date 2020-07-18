@@ -18,7 +18,8 @@
 
 <script>
 export default {
-  name: "CommunityWrite"
+  name: "CommunityWrite",
+
 };
 </script>
 

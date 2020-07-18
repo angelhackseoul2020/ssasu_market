@@ -48,7 +48,8 @@ export default {
   position: absolute;
   width: 30%;
   height: 100%;
-  left: 0;
+  left: 10%;
+  top: 10%;
 }
 #userIdText {
   position: absolute;
@@ -78,7 +79,8 @@ export default {
   position: absolute;
   width: 70%;
   height: 100%;
-  left: 30%;
+  left: 40%;
+  top: 10%;
 }
 #userId {
   position: absolute;
@@ -132,14 +134,14 @@ button {
 }
 #delete {
   position: absolute;
-  bottom: 30px;
-  right: 200px;
+  bottom: 170px;
+  right: 700px;
   background-color: rgb(156, 4, 4);
 }
 #save {
   position: absolute;
-  bottom: 30px;
-  right: 75px;
+  bottom: 170px;
+  right: 580px;
   background-color: #26833d;
 }
 </style>
