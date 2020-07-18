@@ -3,7 +3,6 @@
     <div class="adminStore">
       <div class="header">
         <button type="submit" class="ddStore">상점 추가</button>
-
         <button type="submit" class="addStore">상점 추가</button>
       </div>
     </div>
