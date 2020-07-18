@@ -18,23 +18,24 @@ def info(request):
     return Response(serializer.data)
 
 # 리뷰 하나 쓰기
-# @permission_classes([IsAuthenticated])
-# @api_view(['POST'])
-# @permission_classes([AllowAny])
-# def write_review(request, market_pk):
-#     serializer = ReviewSerializer(data = request.data)
-#     user_id = get_object_or_404(User, pk=user_id)
-#     if serializer.is_valid(raise_exception=True):
-#         serializer.save(market=market_pk, user_id=user_id)
-#     return Response(serializer.data)
-
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def write_review(request, market_pk):
-    serializer = ReviewSerializer(data = request.data)
+    title = request.data.get('title')
+    content = request.data.get('content')
+    image = request.data.get('image')
+    score = request.data.get('score')
     user_id = request.data.get('user_id')
-    if serializer.is_valid(raise_exception=True):
-        print(request.data)
-        serializer.save(market = market_pk)
-        # serializer.save(market_id = market_pk, user_id=user_id)
-    return Response(serializer.data)
+    market = get_object_or_404(Market, pk=market_pk)
+    user =  get_object_or_404(User, pk=user_id)
+    review = Review()
+    review.market = market
+    review.title = title
+    review.content = content
+    review.image = image
+    review.score = score
+    review.user = user
+    review.save()
+    serializer = ReviewSerializer(instance = review)
+    return Response(serializer.data)   
+    
