@@ -49,11 +49,24 @@ class Openhour(models.Model):
     def __str__(self):
         return [self.id ,self.name]
 
-class City(models.Model): # 무슨 구 표시
-    cityid = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=15)
-
 class VisitDatabase(models.Model):
     name = models.ForeignKey('Market', on_delete=models.CASCADE, related_name='visitdatabase') # 몇 번째 마쳇인지
     date = models.CharField(max_length=20)
     number = models.IntegerField()
+
+class Store(models.Model):
+    market = models.ForeignKey(Market, on_delete=models.CASCADE, related_name='store')
+    name = models.CharField(max_length=20)
+    city = models.CharField(max_length=20) # 땡땡구
+    category = models.CharField(max_length=20)
+    address = models.CharField(max_length=40)
+    phone = models.CharField(max_length=20)
+    image = models.TextField()
+    open_hour = models.CharField(max_length=40)
+    content = models.TextField()
+
+class Item(models.Model):
+    store = models.ForeignKey(Store, on_delete=models.CASCADE, related_name='item')
+    name = models.CharField(max_length=20)
+    price = models.CharField(max_length=20)
+    content = models.CharField(max_length=50)
