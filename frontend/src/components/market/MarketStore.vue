@@ -13,6 +13,7 @@
           v-for="data in datas"
           :key="data"
           :name="data.name"
+          :type="data.type"
           :address="data.address"
           :tell="data.tell"
         />
@@ -30,26 +31,32 @@ export default {
       datas: [
         {
           name: "신라한복",
+          type: "한복",
           address: "서울특별시 종로구 예지도 6-1 광장시장 1층 134-1호",
           tell: "02-2275-9003"
         },
         {
           name: "신라한복2",
+          type: "한복2",
+
           address: "서울특별시 종로구",
           tell: "02-2275"
         },
         {
           name: "신라한복3",
+          type: "한복3",
           address: "서울특별시 종로구3",
           tell: "02-2275"
         },
         {
           name: "신라한복4",
+          type: "한복4",
           address: "서울특별시 종로구4",
           tell: "02-2275"
         },
         {
           name: "신라한복5",
+          type: "한복5",
           address: "서울특별시 종로구5",
           tell: "02-2275"
         }

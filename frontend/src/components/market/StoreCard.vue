@@ -7,7 +7,7 @@
       <div class="storeInfo">
         <div class="storeNameCategory">
           <div class="storeName">{{name}}</div>
-          <div class="storeCategory">/ 한복</div>
+          <div class="storeCategory">/ {{type}}</div>
         </div>
         <div class="storeAddress">{{address}}</div>
         <div class="storePhone">{{tell}}</div>
@@ -21,6 +21,9 @@ export default {
   name: "StoreCard",
   props: {
     name: {
+      type: String
+    },
+    type: {
       type: String
     },
     address: {
