@@ -46,7 +46,13 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+input:focus,
+input:hover,
+input:active {
+  outline: none;
+  box-shadow: none;
+}
 #sign-modal-back {
   position: absolute;
   opacity: 0.96;
@@ -180,5 +186,8 @@ export default {
   left: 420px;
   top: 600px;
   cursor: pointer;
+}
+#sign-submit:hover {
+  background-color: #7e9ee4;
 }
 </style>
