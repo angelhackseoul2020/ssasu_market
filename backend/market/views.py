@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import VisitoRecord, Market, Review, Openhour
+from .models import VisitoRecord, Market, Review, Openhour, Store, Item
 from django.http import HttpResponse
 from django.views.decorators.http import require_POST, require_GET
 from datetime import datetime
-from .serializers import MarketSerializer, ReviewSerializer, ReviewUpdateSerializer
+from .serializers import MarketSerializer, ReviewSerializer, ReviewUpdateSerializer, ItemSerializer, StoreSerializer, StoreUpdateSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -73,3 +73,51 @@ def ud_review(request, review_pk):
     else:
         article.delete()
         return Response({'message': 'review is successfully deleted'})
+
+
+'''여기는 상점 관련'''
+@api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
+def write_store(request, market_pk):
+    serializer = StoreSerializer(data = request.data)
+    market = get_object_or_404(Market, pk=market_pk)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(market_id = market_pk)
+    return Response(serializer.data)
+
+# 특정 상점 한개 가져오기
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_store(request, store_pk):
+    store = get_object_or_404(Store, pk=store_pk)
+    serializer = StoreSerializer(store)
+    return Response(serializer.data)
+
+
+# market_pk에 따라서 시장 하나에 딸린 모든 상점들 가져오기
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def market_store(request, market_pk):
+    stores = Store.objects.all().filter(market=market_pk)
+    serializer = StoreSerializer(stores, many=True)
+    return Response(serializer.data)
+
+
+# 상점 한 개 수정 혹은 삭제하기
+@api_view(['PUT','DELETE'])
+@permission_classes([AllowAny])
+# @permission_classes([IsAuthenticated])
+def ud_store(request, store_pk):
+    store = get_object_or_404(Store, pk=store_pk)
+    if request.method == "PUT":
+        serializer = StoreUpdateSerializer(
+            data=request.data, instance=store)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            Response({'message': 'put error'})
+    else:
+        article.delete()
+        return Response({'message': 'store is successfully deleted'})
