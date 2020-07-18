@@ -7,7 +7,7 @@ django.setup()
 
 from market.models import Market
 
-CSV_PATH = './datainput/market_info_01.csv'
+CSV_PATH = './datainput/market_info_02.csv'
 
 with open(CSV_PATH, newline='') as csvfile:
     data_reader = csv.DictReader(csvfile)
