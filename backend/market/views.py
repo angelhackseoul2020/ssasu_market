@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import VisitoRecord, Market, Review, Openhour, Store, Item
+from .models import VisitorRecord, Market, Review, Openhour, Store, Item
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.http import require_POST, require_GET
 from datetime import datetime
 from .serializers import MarketSerializer, ReviewSerializer, ReviewUpdateSerializer, ItemSerializer, ItemUpdateSerializer, StoreSerializer, StoreUpdateSerializer
-from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from qr_code.qrcode.utils import ContactDetail, QRCodeOptions
@@ -28,15 +27,6 @@ def info(request):
     serializer = MarketSerializer(markets, many=True)
     return Response(serializer.data)
 
-# Visitor 정보 저장 api
-@api_view(['POST'])
-@permission_classes([AllowAny])
-def makevisitor(request):
-    serializer = VisitorSerializer(data=request.data)
-    if serializer.is_valid(raise_exception=True):
-        serializer.save()
-        return HttpResponse('Sucess Visitor')
-
 # qrcode 보여주는 api
 @api_view(['GET'])
 @permission_classes([AllowAny])
@@ -46,8 +36,8 @@ def qrcode_page(request, market_pk, user_pk):
     time = datetime.now()
 
     contact_detail = ContactDetail(
-        user_id=user_id,
-        market_id=market_id,
+        user_id=user_id.pk,
+        market_id=market_id.pk,
         time=time,
     )
     print(contact_detail)
@@ -60,25 +50,38 @@ def qrcode_page(request, market_pk, user_pk):
 
     factory = qrcode.image.svg.SvgImage
     img = qrcode.make(contact_detail, image_factory=factory)
-    # img.save(f'market/images/{user_id}{market_id}{time_str}.svg')
     img_save = img.save(f'market/images/{user_id}{market_id}{time_str}.png')
-    # drawing = svg2rlg(f"market/images/{user_id}{market_id}{time_str}.svg")
-    # drawing = svg2rlg(img)
-    # renderPM.drawToFile(drawing, f'market/images/{user_id}{market_id}{time_str}.png', fmt='PNG')
     print('png_done')
- 
+
     return HttpResponse(img_save, content_type="image/png")
 
 def go(request):
-    url = "http://127.0.0.1:8000/market/qrcode_page/1/1"
+    url = "http://127.0.0.1:8000/market/qrcode_page/1/1/"
     response = requests.get(url=url)
     print('response.text')
     print(response.text)
 
     return response
 
+# visitorRecord에 저장하기
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def save_visitor(request, market_pk, user_pk):
+    # user = get_object_or_404(User, pk=user_pk)
+    # market = get_object_or_404(Market, pk=market_pk)
+    time = datetime.now()
 
- 
+    # print('user.id')
+    # print(user.id)
+    visitor_record = VisitorRecord()
+    visitor_record.user_id=user_pk
+    visitor_record.date=time
+    visitor_record.markets_id=market_pk
+    visitor_record.save()
+
+    return Response({'message': 'VisitoRecord is successfully saved'})
+
+
 # 리뷰 하나 쓰기
 @api_view(['POST'])
 # @permission_classes([AllowAny])
