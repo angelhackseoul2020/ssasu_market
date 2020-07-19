@@ -16,8 +16,8 @@ class Market(models.Model):
     parking = models.IntegerField(default=0,null=True)
     toilet = models.IntegerField(default=0,null=True)
     cluster_key = models.CharField(max_length=10)
-    def __str__(self):
-        return [self.id]
+    # def __str__(self):
+    #     return [self.id]
 
 class VisitoRecord(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='visitors', on_delete=models.CASCADE)
@@ -25,7 +25,7 @@ class VisitoRecord(models.Model):
     markets = models.ManyToManyField(Market, related_name="visitors")
     def __str__(self):
         return [self.id ,self.markets]
-    
+
 class Review(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='reviews', on_delete=models.CASCADE)
     market = models.ForeignKey(Market, on_delete=models.CASCADE, related_name='review')

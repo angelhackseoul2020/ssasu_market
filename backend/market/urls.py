@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
@@ -18,4 +18,7 @@ urlpatterns = [
     path('write_item/<int:store_pk>/', views.write_item, name='write_item'),
     path('store_items/<int:store_pk>/', views.store_items, name='store_items'),
     path('ud_item/<int:item_pk>/', views.ud_item, name='ud_item'),
+    # 총 정보
+    path('totalinfo/', views.totalinfo, name='totalinfo')
+
 ]

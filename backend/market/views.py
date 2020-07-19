@@ -1,13 +1,24 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import VisitoRecord, Market, Review, Openhour, Store, Item
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.decorators.http import require_POST, require_GET
 from datetime import datetime
-from .serializers import MarketSerializer, ReviewSerializer, ReviewUpdateSerializer, ItemSerializer, ItemUpdateSerializer, StoreSerializer, StoreUpdateSerializer
+from .serializers import MarketSerializer, ReviewSerializer, ReviewUpdateSerializer, ItemSerializer, ItemUpdateSerializer, StoreSerializer, StoreUpdateSerializer, TotalSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from qr_code.qrcode.utils import ContactDetail, QRCodeOptions
+from django.contrib.auth import get_user_model
+import qrcode
+from django.template import RequestContext, Template, Context
+import qrcode.image.svg
+import requests
+from svglib.svglib import svg2rlg
+from reportlab.graphics import renderPDF, renderPM
 from accounts.models import User 
+
+User = get_user_model()
+
 
 # market 관련 api
 @api_view(['GET'])
@@ -165,3 +176,17 @@ def ud_item(request, item_pk):
     else:
         item.delete()
         return Response({'message': 'Item is successfully deleted'})
+
+# 모든 정보 받아오기
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def totalinfo(request):
+    markets = Market.objects.all()
+    market_dict = dict()
+    for market in markets:
+        if market.cluster_key in market_dict:
+            market_dict[market.cluster_key].append(market.name)
+        else:
+            market_dict[market.cluster_key] = []
+            market_dict[market.cluster_key].append(market.name)
+    return Response(market_dict)

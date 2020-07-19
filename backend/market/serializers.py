@@ -35,3 +35,8 @@ class ItemUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
         fields = ['price', 'content', 'name', 'image']
+
+class TotalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Market
+        fields = ['name']
