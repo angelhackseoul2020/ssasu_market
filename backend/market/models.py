@@ -65,7 +65,8 @@ class Store(models.Model):
     address = models.CharField(max_length=40)
     phone = models.CharField(max_length=20)
     image = models.TextField()
-    open_hour = models.CharField(max_length=40)
+    open_hour = models.CharField(max_length=10)
+    close_hour = models.CharField(max_length=10)
     content = models.TextField()
 
 class Item(models.Model):
@@ -73,3 +74,4 @@ class Item(models.Model):
     name = models.CharField(max_length=20)
     price = models.CharField(max_length=20)
     content = models.CharField(max_length=50)
+    image = models.TextField()
