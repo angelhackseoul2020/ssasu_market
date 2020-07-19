@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import VisitoRecord, Market, Review, Openhour, File
+from .models import VisitoRecord, Market, Review, Openhour
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.http import require_POST, require_GET
 from datetime import datetime
@@ -18,6 +18,8 @@ import qrcode.image.svg
 import requests
 from svglib.svglib import svg2rlg
 from reportlab.graphics import renderPDF, renderPM
+# import cairosvg
+
 
 User = get_user_model()
 
@@ -73,29 +75,32 @@ def qrcode_page(request, market_pk, user_pk):
     hour = str(time.hour)
     time_str = year+month+day+hour
 
-    factory = qrcode.image.svg.SvgImage
-    img = qrcode.make(contact_detail, image_factory=factory)
+    # factory = qrcode.image.svg.SvgImage
+    # img = qrcode.make(contact_detail, image_factory=factory)
+    img = qrcode.make(contact_detail)
     # img.save(f'market/images/{user_id}{market_id}{time_str}.svg')
-    drawing = svg2rlg(f"market/images/{user_id}{market_id}{time_str}.svg")
-    dd=renderPM.drawToFile(drawing, f"market/images/{user_id}{market_id}{time_str}.png", fmt="PNG")
-    
-    return HttpResponse(dd, content_type="image/png")
+    img_save = img.save(f'market/images/{user_id}{market_id}{time_str}.png')
+    # drawing = svg2rlg(f"market/images/{user_id}{market_id}{time_str}.svg")
+    # drawing = svg2rlg(img)
+    # print('drawing')
+    # print(drawing)
+    # cairosvg.svg2png(url=img, write_to='image.png')
+    # renderPM.drawToFile(drawing, f'market/images/{user_id}{market_id}{time_str}.png', fmt='PNG')
+    print('png_done')
+ 
+    return HttpResponse(img_save, content_type="image/png")
 
 
 def go(request):
     url = "http://127.0.0.1:8000/market/qrcode_page/1/1"
     response = requests.get(url=url)
-    print('response.text')
-    print(response.text)
-    # print(response.data)
-    # print(response.data)
-    # print(response.data)
-    # print(response.data)
+    # print('response.text')
+    # print(response.text)
+
+    print('response')
+    print(response)
+    # return Response(url)
     return response
-
-
-
-    # print(time_str)
     
     # response = FileResponse(open(f'market/images/{user_id}.jpg', 'rb'))
     
@@ -106,7 +111,7 @@ def go(request):
     # return redirect('market:send_file',  market_pk, user_pk)
     # return render(request, 'market/qrcode_page.html', context=context)
 
-
+ 
 def send_file(response, market_pk, user_pk):
     market_id = get_object_or_404(Market, pk=market_pk)
     user_id = get_object_or_404(User, pk=user_pk)

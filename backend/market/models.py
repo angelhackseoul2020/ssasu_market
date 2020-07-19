@@ -26,9 +26,6 @@ class VisitoRecord(models.Model):
     def __str__(self):
         return [self.id ,self.markets]
 
-class Visitor(models.Model):
-    user_id = models.CharField(max_length=100)
-
 class Review(models.Model):
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='reviews', on_delete=models.CASCADE)
     market = models.ForeignKey(Market, on_delete=models.CASCADE, related_name='review')
@@ -60,6 +57,3 @@ class VisitDatabase(models.Model):
     name = models.ForeignKey('Market', on_delete=models.CASCADE, related_name='visitdatabase') # 몇 번째 마쳇인지
     date = models.CharField(max_length=20)
     number = models.IntegerField()
-
-class File(models.Model):
-    photo = models.ImageField(blank=True, upload_to='images', null=True)
