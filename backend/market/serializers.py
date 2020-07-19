@@ -29,9 +29,9 @@ class StoreSerializer(serializers.ModelSerializer):
 class StoreUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Store
-        fields = ['name', 'phone', 'image', 'address', 'open_hour', 'content']
+        fields = ['name', 'phone', 'image', 'address', 'open_hour', 'close_hour', 'content']
 
 class ItemUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
-        fields = ['price', 'content', 'name']
+        fields = ['price', 'content', 'name', 'image']
