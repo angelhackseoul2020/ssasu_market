@@ -69,7 +69,7 @@
 
 
 ## 역할
-![팀원] (./docs/imgs/team.png)
+![팀원](./docs/imgs/team.png)
 - 김윤재 : 팀장, 백엔드 데이터 crawling, 배포
 - 박권응 : 프론트엔드 카카오맵 API
 - 백민주 : 백엔드 modeling, 데이터 input, API
