@@ -19,13 +19,13 @@ class Market(models.Model):
     def __str__(self):
         return [self.id]
 
-class VisitoRecord(models.Model):
+class VisitorRecord(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='visitors', on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
-    markets = models.ManyToManyField(Market, related_name="visitors")
+    markets = models.ForeignKey(Market, on_delete=models.CASCADE, related_name="visitors")
     def __str__(self):
-        return [self.id ,self.markets]
-    
+        return [self.id]
+
 class Review(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='reviews', on_delete=models.CASCADE)
     market = models.ForeignKey(Market, on_delete=models.CASCADE, related_name='review')
@@ -65,7 +65,8 @@ class Store(models.Model):
     address = models.CharField(max_length=40)
     phone = models.CharField(max_length=20)
     image = models.TextField()
-    open_hour = models.CharField(max_length=40)
+    open_hour = models.CharField(max_length=10)
+    close_hour = models.CharField(max_length=10)
     content = models.TextField()
 
 class Item(models.Model):
@@ -73,3 +74,4 @@ class Item(models.Model):
     name = models.CharField(max_length=20)
     price = models.CharField(max_length=20)
     content = models.CharField(max_length=50)
+    image = models.TextField()
