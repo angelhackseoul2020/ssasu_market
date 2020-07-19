@@ -1,10 +1,8 @@
 <template>
   <div class="communityWriteWrap">
     <div class="communityWrite">
-      <form action class="photoUpload">
-        <input class="photoInput" type="file" />
-      </form>
-
+      <input class="photoInput" type="file" @change="imgPreview"/>
+      <img src="#" alt="" id="imgPreview">
       <div class="textUpload">
         <input type="text" class="title" placeholder="제목" />
         <textarea name id cols="30" rows="10" class="textField" placeholder="본문"></textarea>
@@ -18,7 +16,14 @@
 
 <script>
 export default {
-  name: "CommunityWrite"
+  name: "CommunityWrite",
+  methods:{
+    imgPreview(event){
+      var imgUrl = URL.createObjectURL(event.target.files[0])
+      var img = document.getElementById('imgPreview')
+      img.src = imgUrl
+    }
+  }
 };
 </script>
 
@@ -34,6 +39,7 @@ export default {
   align-items: center;
 }
 .communityWrite {
+  position: relative;
   width: 70%;
   margin: 0 auto;
   background-color: rgba(252, 252, 252, 0.589);
@@ -102,5 +108,12 @@ textarea:focus {
 }
 .writeIcon {
   width: 50px;
+}
+#imgPreview{
+  position: absolute;
+  top: 60px;
+  left: 70px;
+  width: 300px;
+  height: 200px;
 }
 </style>

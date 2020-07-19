@@ -1,5 +1,5 @@
 <template>
-  <div id="rowForm">
+  <div id="rowForm" @click="openAddModal">
     <p id='rowUserId'>{{uid}}</p>
     <p id='rowUserNick'>{{nick}}</p>
     <p id='rowUserAddress'>{{address}}</p>
@@ -10,6 +10,9 @@
 <script>
 export default {
   props:{
+    index:{
+      type:Number
+    },
     uid:{
       type:String
     },
@@ -28,6 +31,11 @@ export default {
     }
   },
   mounted(){
+  },
+  methods:{
+    openAddModal(){
+      this.$emit('openAddModal',this.index)
+    }
   }
 }
 </script>

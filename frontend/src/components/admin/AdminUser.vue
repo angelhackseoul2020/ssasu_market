@@ -8,18 +8,26 @@
         :address="address"
         :reviewcnt="reviewcnt"
       />
-      <row v-for="user in userList" :key="user.id"
+      <row v-for="(user,index) in userList" :key="user.id"
+        :index="index"
         :uid="user.id"
         :nick="user.nick"
         :address="user.address"
         :reviewcnt="user.reviewcnt"
+        @openAddModal="openAddModal"
       />
     </div>
+    <user-add-modal
+      v-if="addModal"
+      :person="userList[selRow]"      
+    />
   </div>
 </template>
 
 <script>
 import row from './userRow'
+import userAddModal from './AdminUserAdd'
+
 export default {
   mounted(){
     var userAddBtn = document.getElementById('userAddBtn')
@@ -27,10 +35,19 @@ export default {
       location.href = '/adduser'
     })
   },
+  methods:{
+    openAddModal(index){
+      this.addModal = 1
+      this.selRow = index
+      console.log(index);
+    }
+  },
   name: "AdminUser",
-  components: {row},
+  components: {row, userAddModal},
   data(){
     return{
+      addModal:0,
+      selRow:-1,
       id:'ID',
       nick:'닉네임',
       address:'주소',
@@ -40,31 +57,31 @@ export default {
           'id':'이설유',
           'nick':'soulyu',
           'address':'부천',
-          'reviewcnt':4
+          'reviewcnt':'4'
         },
         {
           'id':'김윤재',
           'nick':'yoonjae',
           'address':'봉천',
-          'reviewcnt':3        
+          'reviewcnt':'3'        
         },
         {
           'id':'박권응',
           'nick':'kwoneyng',
           'address':'신림',
-          'reviewcnt':4        
+          'reviewcnt':'4'        
         },
         {
           'id':'백민주',
           'nick':'minzu',
           'address':'일산',
-          'reviewcnt':1        
+          'reviewcnt':'1'        
         },
         {
           'id':'윤가영',
           'nick':'gayoung',
           'address':'서울대입구',
-          'reviewcnt':2        
+          'reviewcnt':'2'        
         },
       ]
     }
