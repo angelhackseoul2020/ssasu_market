@@ -2,14 +2,13 @@
   <div class="home">
     <div id="MarketDetail">
       <MarketInfo
-        :key="data"
         :name="data.name"
-        :score="data.score"
+        :score="data.avg_score"
         :star="data.star"
         :reviewNum="data.reviewNum"
         :address="data.address"
         :time="data.time"
-        :tell="data.tell"
+        :tell="data.phone"
       />
       <MarketVisit></MarketVisit>
     </div>
@@ -19,8 +18,23 @@
 <script>
 import MarketInfo from "./MarketInfo.vue";
 import MarketVisit from "./MarketVisit.vue";
+import axios from "axios";
 
 export default {
+  mounted() {
+    console.log(this.params);
+    this.$emit("marketNum", this.params.id);
+    axios
+      .get("http://127.0.0.1:8000/market/get_market/" + this.params.id + "/")
+      .then(response => {
+        this.data = response.data;
+      });
+  },
+  computed: {
+    params: function() {
+      return this.$route.params;
+    }
+  },
   name: "MarketHome",
   data() {
     return {

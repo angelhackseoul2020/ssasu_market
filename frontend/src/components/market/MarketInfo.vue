@@ -31,6 +31,12 @@
 <script>
 export default {
   name: "MarketInfo",
+  mounted() {
+    setTimeout(() => {
+      sessionStorage.setItem("selectMarketName", this.name);
+      console.log(this.name);
+    }, 100);
+  },
   props: {
     name: {
       type: String

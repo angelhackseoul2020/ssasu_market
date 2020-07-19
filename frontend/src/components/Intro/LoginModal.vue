@@ -1,17 +1,18 @@
 <template>
   <div>
-    <div id="login-modal-back" :style="{width:width+'px', height:height+'px'}"></div>
+    <div id="login-modal-back" :style="{ width: width + 'px', height: height + 'px' }"></div>
     <div id="login-modal">
       <div id="login-id-text">아이디</div>
-      <input id="login-id-input" type="text" placeholder="아이디" />
+      <input id="login-id-input" type="text" placeholder="아이디" v-model="id" />
       <div id="login-pw-text">비밀번호</div>
-      <input id="login-pw-input" type="password" placeholder="비밀번호" />
+      <input id="login-pw-input" type="password" placeholder="비밀번호" v-model="pw" />
       <div id="login-submit">로그인</div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   props: {
     width: {
@@ -22,16 +23,35 @@ export default {
     }
   },
   data() {
-    return {};
+    return {
+      id: "",
+      pw: ""
+    };
   },
   mounted() {
+    var submit = document.getElementById("login-submit");
+    submit.addEventListener("click", () => {
+      axios
+        .post("http://127.0.0.1:8000/accounts/api-token-auth/", {
+          userid: this.id,
+          password: this.pw
+        })
+        .then(response => {
+          console.log(response);
+          if (response.status === 200) {
+            sessionStorage.setItem("token", response.data.token);
+            axios
+              .get("http://127.0.0.1:8000/accounts/myinfo/" + this.id + "/")
+              .then(response => {
+                sessionStorage.setItem("id", response.data.id);
+                location.href = "maps";
+              });
+          }
+        });
+    });
     var loginModal = document.getElementById("login-modal");
     loginModal.style.top = this.height / 2 - 200 + "px";
     loginModal.style.left = this.width / 2 - 400 + "px";
-    var submit = document.getElementById("login-submit");
-    submit.addEventListener("click", () => {
-      this.$emit("loginSub");
-    });
     var loginBack = document.getElementById("login-modal-back");
     loginBack.addEventListener("click", () => {
       this.$emit("closeLoginModal");

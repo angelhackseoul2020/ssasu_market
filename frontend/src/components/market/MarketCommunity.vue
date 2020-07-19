@@ -3,7 +3,7 @@
     <ReviewDetail id="mcModal" v-if="openModal" :data="datas[selModal]" @closeModal="modalClose" />
     <div class="marketCommunity">
       <div class="Header">
-        <div class="marketName">광장시장</div>
+        <div class="marketName">{{selectMarketName}}</div>
         <div class="searchBar">
           <img class="searchIcon" src="../../assets/imgs/search.png" alt />
           <input type="text" placeholder="검색" />
@@ -23,9 +23,10 @@
           :key="index"
           :id="index"
           :title="data.title"
-          :text="data.text"
+          :content="data.content"
           :score="data.score"
           :star="data.star"
+          :createdAt="data.date"
           @openModal="openModals"
         />
       </div>
@@ -36,7 +37,13 @@
 <script>
 import ReviewCard from "./ReviewCard.vue";
 import ReviewDetail from "./ReviewDetail.vue";
+import axios from "axios";
 export default {
+  computed: {
+    params() {
+      return this.$route.params;
+    }
+  },
   name: "MarketCommunity",
   methods: {
     openModals(i) {
@@ -50,6 +57,7 @@ export default {
   },
   data() {
     return {
+      selectMarketName: "",
       openModal: 0,
       selModal: -1,
       datas: [
@@ -83,6 +91,19 @@ export default {
   components: {
     ReviewCard,
     ReviewDetail
+  },
+  mounted() {
+    setTimeout(() => {
+      this.selectMarketName = sessionStorage.getItem("selectMarketName");
+      console.log(this.selectMarketName);
+    }, 100);
+    axios
+      .get(
+        "http://127.0.0.1:8000/market/market_reviews/" + this.params.id + "/"
+      )
+      .then(response => {
+        this.datas = response.data;
+      });
   }
 };
 </script>
