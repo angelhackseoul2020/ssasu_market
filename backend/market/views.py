@@ -15,6 +15,9 @@ from django.http import FileResponse
 # from qrcode.image.pure import PymagingImage
 from django.template import RequestContext, Template, Context
 import qrcode.image.svg
+import requests
+from svglib.svglib import svg2rlg
+from reportlab.graphics import renderPDF, renderPM
 
 User = get_user_model()
 
@@ -48,7 +51,7 @@ def makevisitor(request):
         return HttpResponse('Sucess Visitor')
 
 # qrcode 보여주는 api
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
 @permission_classes([AllowAny])
 def qrcode_page(request, market_pk, user_pk):
     user_id = get_object_or_404(User, pk=user_pk)
@@ -73,9 +76,23 @@ def qrcode_page(request, market_pk, user_pk):
     factory = qrcode.image.svg.SvgImage
     img = qrcode.make(contact_detail, image_factory=factory)
     # img.save(f'market/images/{user_id}{market_id}{time_str}.svg')
+    drawing = svg2rlg(f"market/images/{user_id}{market_id}{time_str}.svg")
+    dd=renderPM.drawToFile(drawing, f"market/images/{user_id}{market_id}{time_str}.png", fmt="PNG")
     
-    
-    return HttpResponse(img, content_type="image/svg+xml")
+    return HttpResponse(dd, content_type="image/png")
+
+
+def go(request):
+    url = "http://127.0.0.1:8000/market/qrcode_page/1/1"
+    response = requests.get(url=url)
+    print('response.text')
+    print(response.text)
+    # print(response.data)
+    # print(response.data)
+    # print(response.data)
+    # print(response.data)
+    return response
+
 
 
     # print(time_str)
@@ -88,17 +105,7 @@ def qrcode_page(request, market_pk, user_pk):
 
     # return redirect('market:send_file',  market_pk, user_pk)
     # return render(request, 'market/qrcode_page.html', context=context)
- 
 
-# qrcode그림 보내기
-# def send_file(response, market_pk, user_pk):
-#     user_id = get_object_or_404(User, pk=user_pk)
-#     market_id = get_object_or_404(Market, pk=market_pk)
-#     img = open(f'market/images/{user_id}.svg', 'rb')
-#     response = FileResponse(img)
-#     html = Template(f'<img src="{{ STATIC_URL }}{user_id} />')
-#     ctx = { 'STATIC_URL':settings.STATIC_URL}
-#     return HttpResponse(html.render(Context(ctx)))
 
 def send_file(response, market_pk, user_pk):
     market_id = get_object_or_404(Market, pk=market_pk)
