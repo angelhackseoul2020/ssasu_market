@@ -1,0 +1,42 @@
+version: "3"
+
+services:
+  nginx:
+    image: nginx:latest
+    build: 
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+      volumes:
+      - .:/usr/src/app
+      - ./config/nginx:/etc/nginx/conf.d
+      depends_on:
+        - web
+  web:
+    build: 
+      context: .
+      dockerfile: dockerfile
+    command: gunicorn angelhack.wsgi:application --bind 0.0.0.0:8000
+    volumes: 
+      - .:/usr/src/app
+    expose:
+      - "8000"
+    
+  # web:
+  #   build: .
+  #   command: python manage.py runserver 0:8000
+  #   ports:
+  #     - "8000:8000"
+  #   volumes:
+  #     - .:/web
+  #   depends_on:
+  #     - db
+  # db:
+  #   build: .
+  #   command: ./entrypoint.sh
+  #   volumes:
+  #     - .:/code
+  #     - .db_data/db.sqlite3:/db.sqlite3
+  #   ports:
+  #     - "8000:8000"
