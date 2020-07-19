@@ -15,13 +15,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='City',
-            fields=[
-                ('cityid', models.AutoField(primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=15)),
-            ],
-        ),
-        migrations.CreateModel(
             name='Market',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
