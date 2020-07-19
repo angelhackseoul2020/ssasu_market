@@ -17,6 +17,13 @@ def info(request):
     serializer = MarketSerializer(markets, many=True)
     return Response(serializer.data)
 
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_market(request, market_pk):
+    market = get_object_or_404(Market, pk=market_pk)
+    serializer = MarketSerializer(market)
+    return Response(serializer.data)        
+
 # 리뷰 하나 쓰기
 @api_view(['POST'])
 # @permission_classes([AllowAny])
