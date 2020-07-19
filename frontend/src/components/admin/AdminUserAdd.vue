@@ -8,7 +8,10 @@
     </div>
     <div class="adminUserAdd">
       <form action method="GET">
-        <input type="text" id="userId" placeholder="아이디" required />
+        <label for="userId">아이디</label>
+        <input type="text" id="userId" placeholder="아이디" required v-model="person.id"/>
+
+        <label for="userNickname">닉네임</label>
         <input type="text" id="userNickname" placeholder="닉네임" />
         <input type="text" id="userEmail" placeholder="이메일" />
         <input type="text" id="userTell" placeholder="연락처" />
@@ -25,7 +28,15 @@
 <script>
 export default {
   name: "AdminUser",
-  components: {}
+  components: {},
+  props:{
+    person:{
+      type:Object
+    }
+  },
+  mounted(){
+    console.log(this.person);
+  }
 };
 </script>
 
@@ -36,13 +47,14 @@ export default {
   box-sizing: border-box;
 }
 .adminUserAddWrap {
-  position: relative;
-  margin: 3rem 3rem;
-  background-color: rgba(252, 252, 252, 0.589);
+  width: 60%;
+  height: 70%;
+  top: 15%;
+  left: 20%;
+  position:absolute;
+  background-color: rgb(252, 252, 252);
   border-radius: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
 }
 #adminUserAddLabel {
   position: absolute;
