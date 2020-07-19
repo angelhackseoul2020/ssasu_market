@@ -14,6 +14,7 @@ import qrcode
 from django.http import FileResponse
 # from qrcode.image.pure import PymagingImage
 from django.template import RequestContext, Template, Context
+import qrcode.image.svg
 
 User = get_user_model()
 
@@ -26,15 +27,15 @@ def info(request):
     return Response(serializer.data)
 
 
-# VisitorRecord 정보 저장 api
-@api_view(['POST'])
-@permission_classes([AllowAny])
-def make_visitor_record(request, market_pk):
-    serializer = VisitorSerializer(data = request.data)
-    user_id = request.data.get('user_id')
-    if serializer.is_valid(raise_exception=True):
-        serializer.save(market = market_pk)
-    return Response(serializer.data)
+# # VisitorRecord 정보 저장 api
+# @api_view(['POST'])
+# @permission_classes([AllowAny])
+# def make_visitor_record(request, market_pk):
+#     serializer = VisitorSerializer(data = request.data)
+#     user_id = request.data.get('user_id')
+#     if serializer.is_valid(raise_exception=True):
+#         serializer.save(market = market_pk)
+#     return Response(serializer.data)
 
 
 # Visitor 정보 저장 api
@@ -54,9 +55,9 @@ def qrcode_page(request, market_pk, user_pk):
     market_id = get_object_or_404(Market, pk=market_pk)
     time = datetime.now()
 
-    contact_detail = dict(
+    contact_detail = ContactDetail(
         user_id=user_id,
-        market_id=market_id['name'],
+        market_id=market_id,
         time=time,
     )
     print(contact_detail)
@@ -68,18 +69,26 @@ def qrcode_page(request, market_pk, user_pk):
     day = str(time.day)
     hour = str(time.hour)
     time_str = year+month+day+hour
-    img = qrcode.make(contact_detail)
-    print(time_str)
-    img.save(f'market/images/{user_id}{market_id}{time_str}.svg')
+
+    factory = qrcode.image.svg.SvgImage
+    img = qrcode.make(contact_detail, image_factory=factory)
+    # img.save(f'market/images/{user_id}{market_id}{time_str}.svg')
+    
+    
+    return HttpResponse(img, content_type="image/svg+xml")
+
+
+    # print(time_str)
+    
     # response = FileResponse(open(f'market/images/{user_id}.jpg', 'rb'))
     
-    context = dict(
-        response=contact_detail
-    )
+    # context = dict(
+    #     response=contact_detail
+    # )
 
     # return redirect('market:send_file',  market_pk, user_pk)
-    return render(request, 'market/qrcode_page.html', context=context)
-
+    # return render(request, 'market/qrcode_page.html', context=context)
+ 
 
 # qrcode그림 보내기
 # def send_file(response, market_pk, user_pk):
