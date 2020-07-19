@@ -49,3 +49,9 @@ def editinfo(request, user_id):
         user.delete()
         return Response("message: deleted")
 
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_users(request):
+    users = User.objects.all()
+    serializer = UserSerializer(instance=users, many=True)
+    return Response(serializer.data)
