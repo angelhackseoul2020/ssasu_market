@@ -26,7 +26,7 @@
 
 흐름도 및 기술스택
 
-![](./docs/data-flow.png)
+![](./docs/data-flow.PNG)
 
 
 
