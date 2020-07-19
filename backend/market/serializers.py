@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Market, Review
+from .models import Market, Review, Item, Store
 
 class MarketSerializer(serializers.ModelSerializer):
     class Meta:
@@ -15,3 +15,23 @@ class ReviewUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = ['title','content','score','image']
+
+class ItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Item
+        fields = '__all__'
+
+class StoreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Store
+        fields = '__all__'
+
+class StoreUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Store
+        fields = ['name', 'phone', 'image', 'address', 'open_hour', 'content']
+
+class ItemUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Item
+        fields = ['price', 'content', 'name']
