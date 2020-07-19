@@ -1,5 +1,6 @@
 <template>
   <div class="adminUserAddWrap">
+    <button id="close">X</button>
     <div id="adminUserAddLabel">
       <p id="userIdText">아이디</p>
       <p id="userNicknameText">닉네임</p>
@@ -7,35 +8,57 @@
       <p id="userTellText">연락처</p>
     </div>
     <div class="adminUserAdd">
-      <form action method="GET">
-        <label for="userId">아이디</label>
-        <input type="text" id="userId" placeholder="아이디" required v-model="person.id"/>
+      <input type="text" id="userId" placeholder="아이디" v-model="id" />
+      <input type="text" id="userNickname" placeholder="닉네임" v-model="nick" />
+      <input type="text" id="userEmail" placeholder="이메일" v-model="email" />
+      <input type="text" id="userTell" placeholder="연락처" v-model="phone" />
 
-        <label for="userNickname">닉네임</label>
-        <input type="text" id="userNickname" placeholder="닉네임" />
-        <input type="text" id="userEmail" placeholder="이메일" />
-        <input type="text" id="userTell" placeholder="연락처" />
-
-        <div class="deleteSave">
-          <button type="submit" id="delete">delete</button>
-          <button type="submit" id="save">save</button>
-        </div>
-      </form>
+      <div class="deleteSave">
+        <button type="submit" id="delete">delete</button>
+        <button type="submit" id="save">save</button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "AdminUser",
   components: {},
-  props:{
-    person:{
-      type:Object
+  props: {
+    person: {
+      type: Object
     }
   },
-  mounted(){
+  data() {
+    return {
+      id: "",
+      nick: "",
+      email: "",
+      phone: ""
+    };
+  },
+  mounted() {
     console.log(this.person);
+    if (this.person) {
+      this.id = this.person.id;
+      this.nick = this.person.nick;
+      this.email = this.person.email;
+      this.phone = this.person.phone;
+    }
+    var close = document.getElementById("close");
+    close.addEventListener("click", () => {
+      this.$emit("close");
+    });
+    var save = document.getElementById("save");
+    save.addEventListener("click", () => {
+      axios.delete(
+        "http://127.0.0.1:8000/accounts/myinfo/" +
+          sessionStorage.getItem("id") +
+          "/"
+      );
+    });
   }
 };
 </script>
@@ -46,19 +69,26 @@ export default {
   font-family: "Jua", sans-serif;
   box-sizing: border-box;
 }
+#close {
+  width: 30px;
+  height: 30px;
+  background-color: red;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
 .adminUserAddWrap {
-  width: 60%;
+  width: 80%;
   height: 70%;
   top: 15%;
-  left: 20%;
-  position:absolute;
+  left: 10%;
+  position: absolute;
   background-color: rgb(252, 252, 252);
   border-radius: 15px;
-
 }
 #adminUserAddLabel {
   position: absolute;
-  width: 30%;
+  width: 20%;
   height: 100%;
   left: 10%;
   top: 10%;
@@ -89,9 +119,9 @@ export default {
 }
 .adminUserAdd {
   position: absolute;
-  width: 70%;
+  width: 65%;
   height: 100%;
-  left: 40%;
+  left: 35%;
   top: 10%;
 }
 #userId {
@@ -146,14 +176,14 @@ button {
 }
 #delete {
   position: absolute;
-  bottom: 170px;
-  right: 700px;
+  bottom: 90px;
+  right: 220px;
   background-color: rgb(156, 4, 4);
 }
 #save {
   position: absolute;
-  bottom: 170px;
-  right: 580px;
+  bottom: 90px;
+  right: 100px;
   background-color: #26833d;
 }
 </style>

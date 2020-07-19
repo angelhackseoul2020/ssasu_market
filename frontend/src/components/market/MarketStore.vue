@@ -2,7 +2,7 @@
   <div class="marketStoreWrap">
     <div class="marketStore">
       <div class="Header">
-        <div class="marketName">광장시장</div>
+        <div class="marketName">{{marketName}}</div>
         <div class="searchBar">
           <img class="searchIcon" src="../../assets/imgs/search.png" alt />
           <input type="text" placeholder="상점 찾기" />
@@ -11,11 +11,11 @@
       <div id="StoreList">
         <StoreCard
           v-for="data in datas"
-          :key="data"
+          :key="data.id"
           :name="data.name"
-          :type="data.type"
+          :type="data.category"
           :address="data.address"
-          :tell="data.tell"
+          :tell="data.phone"
         />
       </div>
     </div>
@@ -24,10 +24,17 @@
 
 <script>
 import StoreCard from "./StoreCard.vue";
+import axios from "axios";
 export default {
   name: "MarketStore",
+  computed: {
+    params: function() {
+      return this.$route.params;
+    }
+  },
   data() {
     return {
+      marketName: "",
       datas: [
         {
           name: "신라한복",
@@ -65,6 +72,15 @@ export default {
   },
   components: {
     StoreCard
+  },
+  mounted() {
+    this.marketName = sessionStorage.getItem("selectMarketName");
+    console.log(this.marketName);
+    axios
+      .get("http://127.0.0.1:8000/market/market_stores/" + this.params.id + "/")
+      .then(response => {
+        this.datas = response.data;
+      });
   }
 };
 </script>
