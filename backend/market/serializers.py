@@ -30,3 +30,8 @@ class StoreUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Store
         fields = ['name', 'phone', 'image', 'address', 'open_hour', 'content']
+
+class ItemUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Item
+        fields = ['price', 'content', 'name']
