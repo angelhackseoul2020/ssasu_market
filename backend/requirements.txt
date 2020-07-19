@@ -1,6 +1,9 @@
 aggdraw==1.3.11
 asgiref==3.2.10
 attrs==19.3.0
+beautifulsoup4==4.9.1
+certifi==2020.6.20
+chardet==3.0.4
 colorama==0.4.3
 cycler==0.10.0
 decorator==4.4.2
@@ -16,6 +19,7 @@ matplotlib==3.3.0
 networkx==2.4
 numpy==1.19.0
 packbits==0.6
+idna==2.10
 Pillow==7.2.0
 psd-tools==1.9.15
 PyJWT==1.7.1
@@ -27,5 +31,11 @@ PyWavelets==1.1.1
 qrcode==6.1
 scikit-image==0.16.2
 scipy==1.5.1
+requests==2.24.0
+selenium==3.141.0
 six==1.15.0
+soupsieve==2.0.1
 sqlparse==0.3.1
+urllib3==1.25.9
+gunicorn==20.0.4
+
