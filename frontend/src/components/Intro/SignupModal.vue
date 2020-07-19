@@ -3,21 +3,22 @@
     <div id="sign-modal-back" :style="{width:width+'px', height:height+'px'}"></div>
     <div id="sign-modal">
       <div id="sign-id-text">아이디</div>
-      <input id="sign-id-input" type="text" placeholder="아이디" />
+      <input id="sign-id-input" type="text" placeholder="아이디" v-model="id" />
       <div id="sign-nick-text">닉네임</div>
-      <input type="text" id="sign-nick-input" placeholder="닉네임" />
+      <input type="text" id="sign-nick-input" placeholder="닉네임" v-model="nick" />
       <div id="sign-pw-text">비밀번호</div>
       <div id="sign-email-text">이메일</div>
-      <input type="email" id="sign-email-input" placeholder="이메일" />
+      <input type="email" id="sign-email-input" placeholder="이메일" v-model="email" />
       <div id="sign-phone-text">연락처</div>
-      <input type="text" id="sign-phone-input" placeholder="연락처" />
-      <input id="sign-pw-input" type="password" placeholder="비밀번호" />
+      <input type="text" id="sign-phone-input" placeholder="연락처" v-model="phone" />
+      <input id="sign-pw-input" type="password" placeholder="비밀번호" v-model="pw" />
       <div id="sign-submit">회원가입</div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   props: {
     width: {
@@ -28,9 +29,27 @@ export default {
     }
   },
   data() {
-    return {};
+    return {
+      id: "",
+      nick: "",
+      pw: "",
+      email: "",
+      phone: ""
+    };
   },
   mounted() {
+    var submit = document.getElementById("sign-submit");
+    submit.addEventListener("click", () => {
+      axios
+        .post("http://127.0.0.1:8000/accounts/signup/", {
+          userid: this.id,
+          phone: this.phone,
+          password: this.pw
+        })
+        .then(response => {
+          console.log(response);
+        });
+    });
     var signModal = document.getElementById("sign-modal");
     signModal.style.top = this.height / 2 - 350 + "px";
     signModal.style.left = this.width / 2 - 500 + "px";

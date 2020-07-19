@@ -1,111 +1,80 @@
 <template>
-  <kakao-map
-    elementId="map"
-    :markers="markers"
-    :width="mapwidth"
-    :height="mapheight"
-  />
+  <div>
+    <kakao-map
+      elementId="map"
+      :markers="markers"
+      :width="mapwidth"
+      :height="mapheight"
+      @click-cluster="openCluster"
+    />
+    <search-result :markers="clusterMarkers" />
+  </div>
 </template>
 <script>
-import KakaoMap from '../components/map/KakaoMap.vue'
-import axios from 'axios'
+import KakaoMap from "../components/map/KakaoMap.vue";
+import SearchResult from "../components/map/searchResult.vue";
+import axios from "axios";
 export default {
-  data:()=>({
-    beforeLogin:1,
-    width:0,
-    height:0,
-    mapwidth:0,
-    mapheight:0,
-    markers:[
-      { "name":"광장시장",
-        "score":4,
-        "type":"신림",
-        "location":{
-          "lat": 37.27943075229118,
-          "lng": 127.01763998406159
-        }
-      },
-      { "name":"옥련시장",
-        "score":3,
-        "type":"서울대입구",
-        "location":{
-          "lat": 37.27943075229118,
-          "lng": 127.01763998406159
-        }
-      },
-      { "name":"깡통시장",
-        "type":"봉천",
-        "score":5,
-        "location":{
-          "lat": 37.24943075229118,
-          "lng": 127.01163998406159
-        }
-      },
-      { "name":"남부시장",
-        "type":"신림",
-        "score":4.5,
-        "location":{
-          "lat": 37.21943375229118,
-          "lng": 127.02764998406159
-        }
-      },
-      { "name":"자갈치시장",
-        "score":2.5,
-        "location":{
-          "lat": 37.27443075229118,
-          "lng": 127.03763998406159
-        }
-      },
-      { "name":"광명시장",
-        "score":4,
-        "location":{
-          "lat": 37.25941075229118,
-          "lng": 127.04762998406159
-        }
-      }
-      ],
-  })
-  ,
+  data: () => ({
+    beforeLogin: 1,
+    width: 0,
+    height: 0,
+    mapwidth: 0,
+    mapheight: 0,
+    markers: [],
+    clusterMarkers: []
+  }),
   components: {
-    KakaoMap, 
+    KakaoMap,
+    SearchResult
   },
-  created(){
-    this.width = window.innerWidth
-    this.height = window.innerHeight
-    this.mapwidth = this.width + 'px'
-    this.mapheight = this.height + 'px'
+  created() {
+    this.width = window.innerWidth;
+    this.height = window.innerHeight;
+    this.mapwidth = this.width + "px";
+    this.mapheight = this.height + "px";
+    axios.get("http://127.0.0.1:8000/market/info/").then(response => {
+      console.log("maps", response);
+      this.markers = response.data;
+    });
   },
-  mounted(){
-    axios.get('http://192.168.17.25:8000/markeet/info/')
-    .then(function(response){
-      console.log(response)
-      this.markers = response.data
-    })
-  },
-  methods:{
-  },
-}
+  mounted() {},
+  methods: {
+    openMarker() {},
+    openCluster(event) {
+      console.log("maps", event);
+      var search = document.getElementById("search");
+      this.clusterMarkers = this.markers.filter(
+        val => val.cluster_key === event
+      );
+      console.log(this.clusterMarkers);
+      setTimeout(() => {
+        search.style.display = "block";
+      }, 10);
+    }
+  }
+};
 </script>
 
 <style>
-#intro{
-  position: absolute;
-  top:0;
-  left:0;
-}
-#map{
+#intro {
   position: absolute;
   top: 0;
-  left:0;
+  left: 0;
 }
-#search{
-    background-color: #ffffff;
-    position: absolute;
-    display: none;
-    top:0;
-    left: 10px;
+#map {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
-input:focus{
-    outline: none;
+#search {
+  background-color: #ffffff;
+  position: absolute;
+  display: none;
+  top: 0;
+  left: 10px;
+}
+input:focus {
+  outline: none;
 }
 </style>

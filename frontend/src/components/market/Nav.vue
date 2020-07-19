@@ -1,16 +1,25 @@
 <template>
   <div class="nav">
-    <router-link style="text-decoration: none; color: inherit;" to="/market/home">
+    <router-link
+      style="text-decoration: none; color: inherit;"
+      :to="{ name: 'home', params: { id: home }}"
+    >
       <div class="home">
         <img class="homeIcon" src="../../assets/imgs/marketHome.png" alt />홈
       </div>
     </router-link>
-    <router-link style="text-decoration: none; color: inherit;" to="/market/store">
+    <router-link
+      style="text-decoration: none; color: inherit;"
+      :to="{name:'mstore', params:{id:home}}"
+    >
       <div class="store">
         <img class="storeIcon" src="../../assets/imgs/marketStore.png" alt />상점
       </div>
     </router-link>
-    <router-link style="text-decoration: none; color: inherit;" to="/market/community">
+    <router-link
+      style="text-decoration: none; color: inherit;"
+      :to="{name:'community',params:{id:home}}"
+    >
       <div class="community">
         <img class="communityIcon" src="../../assets/imgs/marketCommunity.png" alt />게시판
       </div>
@@ -20,7 +29,10 @@
 
 <script>
 export default {
-  name: "Nav"
+  name: "Nav",
+  props: {
+    home: { type: Number }
+  }
 };
 </script>
 
