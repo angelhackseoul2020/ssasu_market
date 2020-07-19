@@ -22,9 +22,9 @@ class Market(models.Model):
 class VisitorRecord(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='visitors', on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
-    markets = models.ForeignKey(Market, on_delete=models.DO_NOTHING, related_name="visitors")
+    markets = models.ForeignKey(Market, on_delete=models.CASCADE, related_name="visitors")
     def __str__(self):
-        return [self.id ,self.markets]
+        return [self.id]
 
 class Review(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='reviews', on_delete=models.CASCADE)
