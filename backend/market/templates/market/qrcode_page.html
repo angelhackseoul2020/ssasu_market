@@ -20,13 +20,11 @@
 </head>
 <body>
 {% block content %}
-
-    <h3>QRCODE TEST</h3>
     <table>
         <tr>
             <!-- {{img}} -->
             <td width="33%">
-                <div>{% qr_for_email response %}</div>
+                <div>{% qr_for_email contact_detail %}</div>
             </td>
         </tr>
     </table>
