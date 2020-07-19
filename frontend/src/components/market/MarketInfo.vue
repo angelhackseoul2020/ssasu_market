@@ -1,38 +1,28 @@
 <template>
   <div class="marketInfoWrap">
     <div class="marketInfo">
-      <div class="marketName">
-        광장시장
-      </div>
+      <div class="marketName">{{name}}</div>
 
       <div class="starReview">
         <!-- starComponent -->
-        <div>5.0 ★★★★★</div>
-        <div class="reviewNum">리뷰 3건</div>
+        <div>{{score}} {{star}}</div>
+        <div class="reviewNum">리뷰 {{reviewNum}}건</div>
       </div>
 
       <div class="aboutMarket">
         <div class="textInfo">
-          <div class="address">
-            서울 종로구 창경궁로 88
-          </div>
-          <div class="time">
-            영업시간 매일 09:00 ~ 18:00
-          </div>
-          <div class="tell">
-            02-2267-0291
-          </div>
+          <div class="address">{{address}}</div>
+          <div class="time">{{time}}</div>
+          <div class="tell">{{tell}}</div>
           <div class="utility">
             시설정보
             <div class="utilIcon">
-              <img class="park" src="../../assets/imgs/park.png" alt="">
-              <img class="toilet" src="../../assets/imgs/toilet.png" alt="">
+              <img class="park" src="../../assets/imgs/park.png" alt />
+              <img class="toilet" src="../../assets/imgs/toilet.png" alt />
             </div>
           </div>
         </div>
-        <div class="photoInfo">
-          사진
-        </div>
+        <div class="photoInfo">사진</div>
       </div>
     </div>
   </div>
@@ -40,15 +30,38 @@
 
 <script>
 export default {
-
-}
+  name: "MarketInfo",
+  props: {
+    name: {
+      type: String
+    },
+    score: {
+      type: Number
+    },
+    star: {
+      type: String
+    },
+    reviewNum: {
+      type: Number
+    },
+    address: {
+      type: String
+    },
+    time: {
+      type: String
+    },
+    tell: {
+      type: String
+    }
+  }
+};
 </script>
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Jua&display=swap");
 * {
-    font-family: "Jua", sans-serif;
-    box-sizing: border-box;
+  font-family: "Jua", sans-serif;
+  box-sizing: border-box;
 }
 .marketInfo {
   width: 70%;
@@ -57,13 +70,13 @@ export default {
 .marketName {
   text-align: center;
   font-size: 3.5rem;
-  color: #2E0202;
+  color: #2e0202;
 }
 .starReview {
   display: flex;
   justify-content: center;
   font-size: 1.5rem;
-  color: #2E0202;
+  color: #2e0202;
 }
 .reviewNum {
   padding-left: 20px;
@@ -84,7 +97,7 @@ export default {
 }
 .tell {
   font-size: 1.2rem;
-  color: #2A7E05; 
+  color: #2a7e05;
 }
 .utility {
   padding-top: 20px;

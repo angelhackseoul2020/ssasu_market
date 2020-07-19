@@ -105,6 +105,22 @@ textarea:focus {
 }
 .write:hover {
   cursor: pointer;
+  animation: write-ani 1s forwards;
+  transform: scale(1.1);
+}
+@keyframes write-ani {
+  0% {
+    opacity: 0.8;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.3);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
 }
 .writeIcon {
   width: 50px;

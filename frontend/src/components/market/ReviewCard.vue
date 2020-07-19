@@ -1,13 +1,13 @@
 <template>
-  <div class="reviewCardWrap">
+  <div id="reviewCardWrap" @click="openModal">
     <div class="reviewCard">
       <div class="reviewPhoto">
         <img src="../../assets/imgs/logo1.png" alt="사진" />
       </div>
       <div class="reviewInfo">
-        <div class="reviewTitle">오전에 광장시장 다녀왔는데</div>
-        <div class="reviewText">오전에 한복 사러 광장시장 갔는데 사람..</div>
-        <div class="reviewStar">5.0 ★★★★★</div>
+        <div class="reviewTitle">{{title}}</div>
+        <div class="reviewText">{{text}}</div>
+        <div class="reviewStar">{{score}} {{star}}</div>
         <div id="reviewer">2020.07.12 Seolyu</div>
       </div>
     </div>
@@ -15,8 +15,36 @@
 </template>
 
 <script>
+import ReviewDetail from "./ReviewDetail.vue";
 export default {
-  name: "ReviewCard"
+  name: "ReviewCard",
+  components: { ReviewDetail },
+  mounted() {},
+  methods: {
+    openModal() {
+      this.$emit("openModal", this.id);
+    }
+  },
+  data() {
+    return {};
+  },
+  props: {
+    id: {
+      type: Number
+    },
+    title: {
+      type: String
+    },
+    text: {
+      type: String
+    },
+    score: {
+      type: Number
+    },
+    star: {
+      type: String
+    }
+  }
 };
 </script>
 
@@ -26,6 +54,10 @@ export default {
   font-family: "Jua", sans-serif;
   box-sizing: border-box;
 }
+#reviewCardWrap {
+  position: relative;
+}
+
 .reviewCard {
   width: 100%;
   height: 220px;
